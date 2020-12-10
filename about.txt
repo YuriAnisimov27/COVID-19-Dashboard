@@ -1,0 +1,8 @@
+изменить данные в package.json
+npm init -y
+npm i -D eslint-config-airbnb eslint-config-prettier eslint-plugin-html eslint-plugin-import eslint-plugin-prettier prettier
+npm i
+
+Scripts:
+build
+start
