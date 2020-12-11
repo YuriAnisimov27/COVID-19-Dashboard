@@ -34,7 +34,9 @@ body {
   height: 300px;
   border: 1px solid #eee;
   color: #aaa;
-  /* overflow: hidden; */
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: scroll;
 }
 
 .list {
