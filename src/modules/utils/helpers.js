@@ -46,5 +46,5 @@ export function storage(key, data = null) {
     return JSON.parse(localStorage.getItem(key));
   }
   localStorage.setItem(key, JSON.stringify(data));
+  return undefined;
 }
-
