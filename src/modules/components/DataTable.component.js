@@ -1,5 +1,12 @@
 import create from '../utils/helpers';
-import { reqGlobalData, requestCountryData } from '../utils/server';
+import {
+  reqGlobalData,
+  requestCountryData,
+  requestCurrentDayData,
+  requestTotalCountDataPer100k,
+  requestCurrentDayDataPer100k,
+  requestTotalCountData,
+} from '../utils/server';
 
 export default class DataTable {
   checkCountry() {
@@ -10,6 +17,7 @@ export default class DataTable {
     const table = document.querySelector('.table');
     const formData = document.querySelector('form');
     const input = document.querySelector('#country');
+    const statusSpan = document.querySelector('.table-btn__info');
 
     const dataTable = create('div', 'dataTable');
     table.append(dataTable);
@@ -35,6 +43,7 @@ export default class DataTable {
             itemCountry.addEventListener('click', () => {
               input.value = itemCountry.textContent;
               requestCountryData(input.value, dataTable);
+              statusSpan.textContent = 'Dashboard navigation';
             });
             dataTable.append(itemCountry);
           });
@@ -51,21 +60,33 @@ export default class DataTable {
     const leftArrow = document.querySelector('.table-btn__left');
     const rightArrow = document.querySelector('.table-btn__right');
     const statusSpan = document.querySelector('.table-btn__info');
+    const dataTable = document.querySelector('.dataTable');
     statusSpan.textContent = informationList[counter];
 
     function updateStatusrData(index) {
       statusSpan.textContent = informationList[index];
+      switch (index) {
+        case 1:
+          requestCurrentDayData(dataTable);
+          return;
+        case 2:
+          requestTotalCountDataPer100k(dataTable);
+          return;
+        case 3:
+          requestCurrentDayDataPer100k(dataTable);
+          return;
+        default:
+          requestTotalCountData(dataTable);
+      }
     }
 
     leftArrow.addEventListener('click', () => {
       counter = (counter) ? counter - 1 : 3;
       updateStatusrData(counter);
-      console.log('left arrow');
     });
     rightArrow.addEventListener('click', () => {
       counter = Math.abs(counter + 1) % 4;
       updateStatusrData(counter);
-      console.log('right arrow');
     });
   }
 }

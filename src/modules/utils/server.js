@@ -1,21 +1,74 @@
+import { storage } from './helpers';
+
 export function reqGlobalData(dataTable) {
   fetch('https://api.covid19api.com/summary')
     .then((data) => data.json())
     .then((data) => {
-      console.log('Global data', data.Global);
+      storage('Global data', data.Global);
       // eslint-disable-next-line no-param-reassign
       dataTable.innerHTML = `
       <ul>
-        <li>"NewConfirmed": ${JSON.stringify(data.Global.NewConfirmed)}</li>
-        <li>"TotalConfirmed": ${JSON.stringify(data.Global.TotalConfirmed)}</li>
-        <li>"NewDeaths": ${JSON.stringify(data.Global.NewDeaths)}</li>
-        <li>"TotalDeaths": ${JSON.stringify(data.Global.TotalDeaths)}</li>
-        <li>"NewRecovered": ${JSON.stringify(data.Global.NewRecovered)}</li>
-        <li>"TotalRecovered": ${JSON.stringify(data.Global.TotalRecovered)}</li>
+        <li>"Total Confirmed": ${JSON.stringify(data.Global.TotalConfirmed)}</li>
+        <li>"Total Deaths": ${JSON.stringify(data.Global.TotalDeaths)}</li>
+        <li>"Total Recovered": ${JSON.stringify(data.Global.TotalRecovered)}</li>
       </ul>
       `;
     })
     .catch((err) => console.error(err));
+}
+
+export function requestTotalCountData(dataTable) {
+  const data = storage('Global data');
+  const dataTableClone = dataTable;
+  dataTableClone.innerHTML = `
+  <ul>
+    <li>"Confirmed": ${JSON.stringify(data.TotalConfirmed)}</li>
+    <li>"Deaths": ${JSON.stringify(data.TotalDeaths)}</li>
+    <li>"Recovered": ${JSON.stringify(data.TotalRecovered)}</li>
+  </ul>
+  `;
+}
+
+export function requestCurrentDayData(dataTable) {
+  const data = storage('Global data');
+  const dataTableClone = dataTable;
+  dataTableClone.innerHTML = `
+  <ul>
+    <li>"Confirmed": ${JSON.stringify(data.NewConfirmed)}</li>
+    <li>"Deaths": ${JSON.stringify(data.NewDeaths)}</li>
+    <li>"Recovered": ${JSON.stringify(data.NewRecovered)}</li>
+  </ul>
+  `;
+}
+
+export function requestTotalCountDataPer100k(dataTable) {
+  const data = storage('Global data');
+  const dataTableClone = dataTable;
+  dataTableClone.innerHTML = `
+  <ul>
+    <li>"Confirmed": ${((JSON.stringify(data.TotalConfirmed) / 7800000000) * 100000)
+    .toFixed(3)}</li>
+    <li>"Deaths": ${((JSON.stringify(data.TotalDeaths) / 7800000000) * 100000)
+    .toFixed(3)}</li>
+    <li>"Recovered": ${((JSON.stringify(data.TotalRecovered) / 7800000000) * 100000)
+    .toFixed(3)}</li>
+  </ul>
+  `;
+}
+
+export function requestCurrentDayDataPer100k(dataTable) {
+  const data = storage('Global data');
+  const dataTableClone = dataTable;
+  dataTableClone.innerHTML = `
+  <ul>
+    <li>"Confirmed": ${((JSON.stringify(data.NewConfirmed) / 7800000000) * 100000)
+    .toFixed(3)}</li>
+    <li>"Deaths": ${((JSON.stringify(data.NewDeaths) / 7800000000) * 100000)
+    .toFixed(3)}</li>
+    <li>"Recovered": ${((JSON.stringify(data.NewRecovered) / 7800000000) * 100000)
+    .toFixed(3)}</li>
+  </ul>
+  `;
 }
 
 export function requestCountryData(country, dataTable) {
