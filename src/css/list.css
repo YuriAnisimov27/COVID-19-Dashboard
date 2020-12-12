@@ -1,0 +1,22 @@
+.list-globalCases {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.list-countries-ul {
+  list-style: none;
+  overflow-y: scroll;
+  height: 230px;
+}
+
+.li__nameblock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-countries-ul__li {
+  border: 1px solid white;
+  margin: 5px 0px 5px 0px;
+}
