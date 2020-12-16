@@ -1,0 +1,41 @@
+.list-listHeader {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.listHeader__info {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.list-countries-ul {
+  list-style: none;
+  overflow-y: scroll;
+  height: 215px;
+  padding: 5px;
+}
+
+.li__nameblock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-countries-ul__li {
+  border: 1px solid white;
+  margin: 5px 0px 5px 0px;
+}
+
+.list-countries-ul__li :hover {
+  cursor: pointer;
+}
+
+.list__arrows :hover {
+  cursor: pointer;
+}
+
+.set {
+  background-color: brown;
+}
