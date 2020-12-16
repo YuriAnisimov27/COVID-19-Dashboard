@@ -8,27 +8,57 @@
   <link rel="shortcut icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body>
 
   <div class="container">
     <header class="header">
       header
     </header>
+
     <div class="map">
       map
     </div>
+
     <div class="table">
-      table
+      <div class="table-nav">
+        <button class="table-btn__left">
+          <span class="material-icons">
+            arrow_left
+          </span>
+        </button>
+        <span class="table-btn__info">
+          total
+        </span>
+        <button class="table-btn__right">
+          <span class="material-icons">
+            arrow_right
+            </span>
+        </button>
+      </div>
+      <form action="" method="get" class="form-example">
+        <div class="form-example">
+          <label for="name">Enter country: </label>
+          <input type="text" name="country" id="country" placeholder="enter country" required>
+        </div>
+        <div class="form-example">
+          <input type="submit" value="Search!">
+        </div>
+      </form>
     </div>
+
     <div class="list">
     </div>
+
     <div class="schedule">
       schedule
     </div>
+
     <footer class="footer">
       footer
     </footer>
   </div>
 
 </body>
+
 </html>

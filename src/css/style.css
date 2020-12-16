@@ -34,6 +34,31 @@ body {
   height: 300px;
   border: 1px solid #eee;
   color: #aaa;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: scroll;
+}
+
+.table p {
+  cursor: pointer;
+}
+
+.table-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.table-btn__info {
+  text-align: center;
+  width: 300px;
+  height: 20px;
+  color: #fff;
+}
+
+.table-btn__left, .table-btn__right {
+  cursor: pointer;
 }
 
 .list {
