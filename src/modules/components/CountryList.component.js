@@ -14,11 +14,6 @@ const listOfCountries = create('div', 'list-countries');
 const listOfCountriesUl = create('ul', 'list-countries-ul');
 const headerArr = ['Global confirmed', 'Global deaths', 'Global recovered'];
 const countriesArr = ['Confirmed', 'Deths', 'Recovered'];
-const keysForList = {
-  TotalDeaths: 1,
-  TotalRecovered: 2,
-  TotalConfirmed: 0
-};
 const requestOptions = {
   method: 'GET',
   redirect: 'follow'
@@ -38,23 +33,18 @@ function sortResultByCurrentCattegory(counter) {
     default:
       res = resultGlobal.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
       break;
-  };
+  }
   return res;
-};
-function getData(result) {
-  resultGlobal = result;
-  headerInfoBuilder();
-  countriesListBuilder();
-};
+}
 function sendData(data) {
   console.log(data);
-};
+}
 function changeEl(el, toChange) {
   el.innerHTML = `${toChange}`;
-};
+}
 function clearEl(el) {
   el.innerHTML = '';
-};
+}
 function getCountryData(currentCountry, counter) {
   let res;
   switch (counter) {
@@ -67,9 +57,9 @@ function getCountryData(currentCountry, counter) {
     default:
       res = currentCountry.TotalConfirmed;
       break;
-  };
+  }
   return res;
-};
+}
 function countriesListBuilder() {
   sortResultByCurrentCattegory(counter).forEach(el => {
     const country = create('li', 'list-countries-ul__li');
@@ -89,15 +79,15 @@ function countriesListBuilder() {
       if (!seted) {
         seted = true;
         country.classList.add('set');
-        sendData(el);
+        sendData(el); // It sends the object of current country
       } else {
         document.querySelector('.set').classList.remove('set');
         country.classList.add('set');
         sendData(el);
-      };
+      }
     });
   });
-};
+}
 function headerInfoBuilder() {
   leftArrow.innerHTML = 'arrow_left';
   rightArrow.innerHTML = 'arrow_right';
@@ -123,7 +113,7 @@ function headerInfoBuilder() {
     arrowClick(counter);
     seted = false;
   });
-};
+}
 function arrowClick(counter) {
   switch (counter) {
     case 1:
@@ -144,12 +134,18 @@ function arrowClick(counter) {
       changeEl(listHeaderTitleAmount, resultGlobal.Global.TotalConfirmed);
       countriesListBuilder();
       break;
-  };
-};
+  }
+}
+
+function getData(result) {
+  resultGlobal = result;
+  headerInfoBuilder();
+  countriesListBuilder();
+}
 
 window.onload = function () {
   fetch("https://api.covid19api.com/summary", requestOptions)
     .then(response => response.json())
     .then(result => getData(result))
     .catch(error => console.log('error', error));
-}
+};
