@@ -5,6 +5,7 @@ export function reqGlobalData(dataTable) {
     .then((data) => data.json())
     .then((data) => {
       storage('Global data', data.Global);
+      storage('Global', data);
       // eslint-disable-next-line no-param-reassign
       dataTable.innerHTML = `
       <ul>
