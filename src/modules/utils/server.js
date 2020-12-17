@@ -95,3 +95,17 @@ export function requestCountryData(country, dataTable) {
     })
     .catch((err) => console.error(err));
 }
+
+export async function getCountrySchedule(country, from, to) {
+  const dates = [];
+  const cases = [];
+  await fetch(`https://api.covid19api.com/country/${country}/status/confirmed?from=${from}&to=${to}`)
+    .then((data) => data.json())
+    .then((data) => data.map((el) => {
+      dates.push(new Date(el.Date).toLocaleDateString());
+      cases.push(+el.Cases);
+      return { dates, cases };
+    }));
+
+  return { dates, cases };
+}

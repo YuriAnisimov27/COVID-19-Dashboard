@@ -1,4 +1,3 @@
-import '../utils/helpers';
 import create from '../utils/helpers';
 
 const arrowLeftBlock = create('div', 'list-listHeader__left list__arrows');
@@ -7,7 +6,7 @@ const leftArrow = create('span', 'material-icons');
 const rightArrow = create('span', 'material-icons');
 const list = document.querySelector('.list');
 const listHeader = create('div', 'list-listHeader');
-const listHeaderInfo = create('div', 'listHeader__info')
+const listHeaderInfo = create('div', 'listHeader__info');
 const listHeaderTitleText = create('span', 'list-listHeader__title');
 const listHeaderTitleAmount = create('span', 'list-listHeader__amount');
 const listOfCountries = create('div', 'list-countries');
@@ -16,7 +15,7 @@ const headerArr = ['Global confirmed', 'Global deaths', 'Global recovered'];
 const countriesArr = ['Confirmed', 'Deths', 'Recovered'];
 const requestOptions = {
   method: 'GET',
-  redirect: 'follow'
+  redirect: 'follow',
 };
 let seted = false;
 let resultGlobal;
@@ -61,7 +60,7 @@ function getCountryData(currentCountry, counter) {
   return res;
 }
 function countriesListBuilder() {
-  sortResultByCurrentCattegory(counter).forEach(el => {
+  sortResultByCurrentCattegory(counter).forEach((el) => {
     const country = create('li', 'list-countries-ul__li');
     const countryNameBlock = create('div', 'li__nameblock');
     const countrytInfoBLock = create('div', 'li__infoblock');
@@ -144,8 +143,8 @@ function getData(result) {
 }
 
 window.onload = function () {
-  fetch("https://api.covid19api.com/summary", requestOptions)
-    .then(response => response.json())
-    .then(result => getData(result))
-    .catch(error => console.log('error', error));
+  fetch('https://api.covid19api.com/summary', requestOptions)
+    .then((response) => response.json())
+    .then((result) => getData(result))
+    .catch((error) => console.log('error', error));
 };
