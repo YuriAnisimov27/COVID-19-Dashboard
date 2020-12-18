@@ -39,25 +39,25 @@ body {
   overflow-y: scroll;
 }
 
-.table p {
+.table p, .list p {
   cursor: pointer;
 }
 
-.table-nav {
+.table-nav, .list-nav {
   width: 100%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
 }
 
-.table-btn__info {
+.table-btn__info, .list-btn__info {
   text-align: center;
   width: 300px;
   height: 20px;
   color: #fff;
 }
 
-.table-btn__left, .table-btn__right {
+.table-btn__left, .table-btn__right, .list-btn__left, .list-btn__right {
   cursor: pointer;
 }
 
@@ -66,6 +66,9 @@ body {
   height: 300px;
   border: 1px solid #eee;
   color: #aaa;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: scroll;
 }
 
 .schedule {

@@ -15,40 +15,11 @@ export default class DataTable {
 
   createTable() {
     const table = document.querySelector('.table');
-    const formData = document.querySelector('form');
-    const input = document.querySelector('#country');
-    const statusSpan = document.querySelector('.table-btn__info');
 
     const dataTable = create('div', 'dataTable');
     table.append(dataTable);
 
     reqGlobalData(dataTable);
-
-    formData.addEventListener('submit', (e) => {
-      e.preventDefault();
-      requestCountryData(input.value, dataTable);
-      input.value = '';
-    });
-
-    input.addEventListener('input', (event) => {
-      dataTable.innerHTML = '';
-      fetch('https://api.covid19api.com/summary')
-        .then((data) => data.json())
-        .then((arr) => {
-          const searchingCountryData = arr.Countries
-            .filter((el) => el.Country.toLowerCase().startsWith(event.target.value));
-          searchingCountryData.forEach((el) => {
-            const itemCountry = create('p');
-            itemCountry.textContent = el.Country;
-            itemCountry.addEventListener('click', () => {
-              input.value = itemCountry.textContent;
-              requestCountryData(input.value, dataTable);
-              statusSpan.textContent = 'Dashboard navigation';
-            });
-            dataTable.append(itemCountry);
-          });
-        });
-    });
 
     this.changeData();
   }

@@ -6,6 +6,7 @@ export function reqGlobalData(dataTable) {
     .then((data) => {
       storage('Global data', data.Global);
       storage('Global', data);
+      storage('Current Day', new Date(data.Date).toLocaleDateString());
       // eslint-disable-next-line no-param-reassign
       dataTable.innerHTML = `
       <ul>
