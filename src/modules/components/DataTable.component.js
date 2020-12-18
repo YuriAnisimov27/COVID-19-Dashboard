@@ -28,30 +28,42 @@ export default class DataTable {
     const dataTable = document.querySelector('.dataTable');
     statusSpan.textContent = informationList[counter];
 
-    function updateStatusrData(index) {
+    function updateStatusrData(index, country) {
       statusSpan.textContent = informationList[index];
       switch (index) {
         case 1:
-          requestCurrentDayData(dataTable);
+          requestCurrentDayData(dataTable, country);
           return;
         case 2:
-          requestTotalCountDataPer100k(dataTable);
+          requestTotalCountDataPer100k(dataTable, country);
           return;
         case 3:
-          requestCurrentDayDataPer100k(dataTable);
+          requestCurrentDayDataPer100k(dataTable, country);
           return;
         default:
-          requestTotalCountData(dataTable);
+          requestTotalCountData(dataTable, country);
       }
     }
 
+    const countryTitle = document.querySelector('.table-nav__title');
+
     leftArrow.addEventListener('click', () => {
       counter = (counter) ? counter - 1 : 3;
-      updateStatusrData(counter);
+      if (countryTitle.textContent !== 'World Data') {
+        const country = countryTitle.textContent.replaceAll('"', '');
+        updateStatusrData(counter, country);
+      } else {
+        updateStatusrData(counter);
+      }
     });
     rightArrow.addEventListener('click', () => {
       counter = Math.abs(counter + 1) % 4;
-      updateStatusrData(counter);
+      if (countryTitle.textContent !== 'World Data') {
+        const country = countryTitle.textContent.replaceAll('"', '');
+        updateStatusrData(counter, country);
+      } else {
+        updateStatusrData(counter);
+      }
     });
   }
 }

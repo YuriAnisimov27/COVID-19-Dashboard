@@ -5,7 +5,6 @@ export default class ScheduleDiseases {
   async createSchedule(country = 'Belarus') {
     this.bar = 'Hello World';
     const currentDay = storage('Current Day');
-    console.log('currentDay', currentDay);
     const { dates, cases } = await getCountrySchedule(country, '2020-08-01T00:00:00Z', currentDay);
 
     const ctx = document.getElementById('myChart').getContext('2d');
