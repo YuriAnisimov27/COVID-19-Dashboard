@@ -6,7 +6,7 @@ export function reqGlobalData(dataTable) {
     .then((data) => {
       storage('Global data', data.Global);
       storage('Global', data);
-      storage('Current Day', new Date(data.Date).toLocaleDateString());
+      storage('Current Day', data.Date);
       // eslint-disable-next-line no-param-reassign
       dataTable.innerHTML = `
       <ul>
@@ -78,7 +78,6 @@ export function requestCountryData(country, dataTable) {
     .then((data) => data.json())
     .then((data) => {
       const searchingCountryData = data.Countries.filter((el) => el.Country === country)[0];
-      console.log('searchingCountryData', searchingCountryData);
       // eslint-disable-next-line no-param-reassign
       dataTable.innerHTML = `
       <ul>

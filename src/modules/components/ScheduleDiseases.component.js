@@ -1,9 +1,12 @@
 import { getCountrySchedule } from '../utils/server';
+import { storage } from '../utils/helpers';
 
 export default class ScheduleDiseases {
-  async createSchedule() {
+  async createSchedule(country = 'Belarus') {
     this.bar = 'Hello World';
-    const { dates, cases } = await getCountrySchedule('Egypt', '2020-08-01T00:00:00Z', '2020-12-17T02:32:20Z');
+    const currentDay = storage('Current Day');
+    console.log('currentDay', currentDay);
+    const { dates, cases } = await getCountrySchedule(country, '2020-08-01T00:00:00Z', currentDay);
 
     const ctx = document.getElementById('myChart').getContext('2d');
     const chart = new Chart(ctx, {

@@ -39,6 +39,11 @@ body {
   overflow-y: scroll;
 }
 
+.dataList, .dataList {
+  box-sizing: border-box;
+  overflow-y: scroll;
+}
+
 .table p, .list p {
   cursor: pointer;
 }
@@ -83,4 +88,16 @@ body {
   width: 100%;
   border: 1px solid #eee;
   color: #aaa;
+}
+
+.country-inner {
+  cursor: pointer;
+  margin: 3px;
+}
+
+.country-inner img {
+  display: inline-block;
+  margin-right: 10px;
+  width: 30px;
+  height: 20px;
 }

@@ -1,7 +1,6 @@
 import create from '../utils/helpers';
 import {
   reqGlobalData,
-  requestCountryData,
   requestCurrentDayData,
   requestTotalCountDataPer100k,
   requestCurrentDayDataPer100k,
@@ -9,13 +8,8 @@ import {
 } from '../utils/server';
 
 export default class DataTable {
-  checkCountry() {
-    this.bar = 'Hello world';
-  }
-
   createTable() {
     const table = document.querySelector('.table');
-
     const dataTable = create('div', 'dataTable');
     table.append(dataTable);
 
