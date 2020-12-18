@@ -1,69 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COVID-19</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+  <link href="style.css" rel="stylesheet"></head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>COVID-19</title>
-  <link rel="shortcut icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-  crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-  integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-  crossorigin=""></script>
-<link href="style.css" rel="stylesheet"></head>
-
-<body>
-
-  <div class="container">
-    <header class="header">
-      header
-    </header>
-
-    <div class="map" id = 'map'>
-    </div>
-
-    <div class="table">
-      <div class="table-nav">
-        <button class="table-btn__left">
-          <span class="material-icons">
-            arrow_left
-          </span>
-        </button>
-        <span class="table-btn__info">
-          total
-        </span>
-        <button class="table-btn__right">
-          <span class="material-icons">
-            arrow_right
-            </span>
-        </button>
+  <body>
+    <div class="container">
+      <header class="header">header</header>
+      <div class="map" id= 'mapBlock'>
+        <div class="map" id="map"></div>
       </div>
-      <form action="" method="get" class="form-example">
-        <div class="form-example">
-          <label for="name">Enter country: </label>
-          <input type="text" name="country" id="country" placeholder="enter country" required>
+      <div class="table">
+        <div class="table-nav">
+          <button class="table-btn__left">
+            <span class="material-icons"> arrow_left </span>
+          </button>
+          <span class="table-btn__info"> total </span>
+          <button class="table-btn__right">
+            <span class="material-icons"> arrow_right </span>
+          </button>
         </div>
-        <div class="form-example">
-          <input type="submit" value="Search!">
-        </div>
-      </form>
+        <form action="" method="get" class="form-example">
+          <div class="form-example">
+            <label for="name">Enter country: </label>
+            <input type="text" name="country" id="country" placeholder="enter country" required />
+          </div>
+          <div class="form-example">
+            <input type="submit" value="Search!" />
+          </div>
+        </form>
+      </div>
+
+      <div class="list"></div>
+
+      <div class="schedule">schedule</div>
+
+      <footer class="footer">footer</footer>
     </div>
-
-    <div class="list">
-    </div>
-
-    <div class="schedule">
-      schedule
-    </div>
-
-    <footer class="footer">
-      footer
-    </footer>
-  </div>
-
-<script src="bundle.js"></script></body>
-
+  <script src="bundle.js"></script></body>
 </html>
