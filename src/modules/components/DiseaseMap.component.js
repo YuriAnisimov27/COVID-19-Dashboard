@@ -2,6 +2,19 @@
 import { countriesGeo } from '../geodata/countries.geo';
 import create from '../utils/helpers';
 
+const gradesCases = [0, 5000, 50000, 500000, 1000000];
+const gradesDeaths = [0, 50, 500, 50000, 500000];
+const gradesRecoveries = [0, 5000, 50000, 500000, 1000000];
+const gradesCasesPer100K = [0, 1, 20, 50, 100];
+const gradesDeathsPer100K = [0, 0.01, 0.1, 0.5, 1];
+const gradesRecoveriesPer100K = [0, 1, 5, 10, 20];
+const gradesNewCases = [0, 100, 1000, 50000, 100000];
+const gradesNewDeaths = [0, 10, 100, 500, 1000];
+const gradesNewRecoveries = [0, 100, 1000, 5000, 10000];
+const gradesNewCasesPer100K = [0, 0.01, 0.1, 0.5, 1];
+const gradesNewDeathsPer100K = [0, 0.001, 0.01, 0.1, 0.5];
+const gradesNewRecoveriesPer100K = [0, 0.001, 0.01, 0.1, 0.5];
+const population = 1000000;
 let counter = 0;
 let dataClone;
 
@@ -53,146 +66,146 @@ export default function mapBuilder(data) {
     if (counter === 0) {
       comp = searchData(currentCountryTofill).TotalConfirmed;
       // eslint-disable-next-line no-nested-ternary
-      return comp === 0 ? '#b89c39'
+      return comp === gradesCases[0] ? '#b89c39'
         // eslint-disable-next-line no-nested-ternary
-        : comp <= 5000 ? '#4fa0b3'
+        : comp <= gradesCases[1] ? '#4fa0b3'
           // eslint-disable-next-line no-nested-ternary
-          : comp <= 50000 ? '#2368b8'
+          : comp <= gradesCases[2] ? '#2368b8'
             // eslint-disable-next-line no-nested-ternary
-            : comp <= 500000 ? '#0751a6'
-              : comp <= 1000000 ? '#053a78' : '#002045';
+            : comp <= gradesCases[3] ? '#0751a6'
+              : comp <= gradesCases[4] ? '#053a78' : '#002045';
     }
     if (counter === 1) {
       comp = searchData(currentCountryTofill).TotalDeaths;
       // eslint-disable-next-line no-nested-ternary
-      return comp === 0 ? '#b89c39'
+      return comp === gradesDeaths[0] ? '#ffd9b3'
         // eslint-disable-next-line no-nested-ternary
-        : comp <= 5000 ? '#4fa0b3'
+        : comp <= gradesDeaths[1] ? '#ffcc99'
           // eslint-disable-next-line no-nested-ternary
-          : comp <= 50000 ? '#2368b8'
+          : comp <= gradesDeaths[2] ? '#ffb366'
             // eslint-disable-next-line no-nested-ternary
-            : comp <= 500000 ? '#0751a6'
-              : comp <= 1000000 ? '#053a78' : '#002045';
+            : comp <= gradesDeaths[3] ? '#ff9933'
+              : comp <= gradesDeaths[4] ? '#cc6600' : '#994d00';
     }
     if (counter === 2) {
       comp = searchData(currentCountryTofill).TotalRecovered;
       // eslint-disable-next-line no-nested-ternary
-      return comp === 0 ? '#b89c39'
+      return comp === gradesRecoveries[0] ? '#ccffcc'
         // eslint-disable-next-line no-nested-ternary
-        : comp <= 5000 ? '#4fa0b3'
+        : comp <= gradesRecoveries[1] ? '#1aff1a'
           // eslint-disable-next-line no-nested-ternary
-          : comp <= 50000 ? '#2368b8'
+          : comp <= gradesRecoveries[2] ? '#00e600'
             // eslint-disable-next-line no-nested-ternary
-            : comp <= 500000 ? '#0751a6'
-              : comp <= 1000000 ? '#053a78' : '#002045';
+            : comp <= gradesRecoveries[3] ? '#00b300'
+              : comp <= gradesRecoveries[4] ? '#008000' : '#004d00';
     }
     if (counter === 3) {
-      comp = (searchData(currentCountryTofill).TotalConfirmed / 100000);
+      comp = (searchData(currentCountryTofill).TotalConfirmed / population);
       // eslint-disable-next-line no-nested-ternary
-      return comp === 0 ? '#b89c39'
+      return comp === gradesCasesPer100K[0] ? '#b89c39'
         // eslint-disable-next-line no-nested-ternary
-        : comp <= 5000 ? '#4fa0b3'
+        : comp <= gradesCasesPer100K[1] ? '#4fa0b3'
           // eslint-disable-next-line no-nested-ternary
-          : comp <= 50000 ? '#2368b8'
+          : comp <= gradesCasesPer100K[2] ? '#2368b8'
             // eslint-disable-next-line no-nested-ternary
-            : comp <= 500000 ? '#0751a6'
-              : comp <= 1000000 ? '#053a78' : '#002045';
+            : comp <= gradesCasesPer100K[3] ? '#0751a6'
+              : comp <= gradesCasesPer100K[4] ? '#053a78' : '#002045';
     }
     if (counter === 4) {
-      comp = (searchData(currentCountryTofill).TotalDeaths / 100000);
+      comp = (searchData(currentCountryTofill).TotalDeaths / population);
       // eslint-disable-next-line no-nested-ternary
-      return comp === 0 ? '#b89c39'
+      return comp === gradesDeathsPer100K[0] ? '#ffd9b3'
         // eslint-disable-next-line no-nested-ternary
-        : comp <= 5000 ? '#4fa0b3'
+        : comp <= gradesDeathsPer100K[1] ? '#ffcc99'
           // eslint-disable-next-line no-nested-ternary
-          : comp <= 50000 ? '#2368b8'
+          : comp <= gradesDeathsPer100K[2] ? '#ffb366'
             // eslint-disable-next-line no-nested-ternary
-            : comp <= 500000 ? '#0751a6'
-              : comp <= 1000000 ? '#053a78' : '#002045';
+            : comp <= gradesDeathsPer100K[3] ? '#ff9933'
+              : comp <= gradesDeathsPer100K[4] ? '#cc6600' : '#994d00';
     }
     if (counter === 5) {
-      comp = (searchData(currentCountryTofill).TotalRecovered / 100000);
+      comp = (searchData(currentCountryTofill).TotalRecovered / population);
       // eslint-disable-next-line no-nested-ternary
-      return comp === 0 ? '#b89c39'
+      return comp === gradesRecoveriesPer100K[0] ? '#ccffcc'
         // eslint-disable-next-line no-nested-ternary
-        : comp <= 5000 ? '#4fa0b3'
+        : comp <= gradesRecoveriesPer100K[1] ? '#1aff1a'
           // eslint-disable-next-line no-nested-ternary
-          : comp <= 50000 ? '#2368b8'
+          : comp <= gradesRecoveriesPer100K[2] ? '#00e600'
             // eslint-disable-next-line no-nested-ternary
-            : comp <= 500000 ? '#0751a6'
-              : comp <= 1000000 ? '#053a78' : '#002045';
+            : comp <= gradesRecoveriesPer100K[3] ? '#00b300'
+              : comp <= gradesRecoveriesPer100K[4] ? '#008000' : '#004d00';
     }
     if (counter === 6) {
       comp = (searchData(currentCountryTofill).NewConfirmed);
       // eslint-disable-next-line no-nested-ternary
-      return comp === 0 ? '#b89c39'
+      return comp === gradesNewCases[0] ? '#b89c39'
         // eslint-disable-next-line no-nested-ternary
-        : comp <= 5000 ? '#4fa0b3'
+        : comp <= gradesNewCases[1] ? '#4fa0b3'
           // eslint-disable-next-line no-nested-ternary
-          : comp <= 50000 ? '#2368b8'
+          : comp <= gradesNewCases[2] ? '#2368b8'
             // eslint-disable-next-line no-nested-ternary
-            : comp <= 500000 ? '#0751a6'
-              : comp <= 1000000 ? '#053a78' : '#002045';
+            : comp <= gradesNewCases[3] ? '#0751a6'
+              : comp <= gradesNewCases[4] ? '#053a78' : '#002045';
     }
     if (counter === 7) {
       comp = (searchData(currentCountryTofill).NewDeaths);
       // eslint-disable-next-line no-nested-ternary
-      return comp === 0 ? '#b89c39'
+      return comp === gradesNewDeaths[0] ? '#ffd9b3'
         // eslint-disable-next-line no-nested-ternary
-        : comp <= 5000 ? '#4fa0b3'
+        : comp <= gradesNewDeaths[1] ? '#ffcc99'
           // eslint-disable-next-line no-nested-ternary
-          : comp <= 50000 ? '#2368b8'
+          : comp <= gradesNewDeaths[2] ? '#ffb366'
             // eslint-disable-next-line no-nested-ternary
-            : comp <= 500000 ? '#0751a6'
-              : comp <= 1000000 ? '#053a78' : '#002045';
+            : comp <= gradesNewDeaths[3] ? '#ff9933'
+              : comp <= gradesNewDeaths[4] ? '#cc6600' : '#994d00';
     }
     if (counter === 8) {
       comp = (searchData(currentCountryTofill).NewRecovered);
       // eslint-disable-next-line no-nested-ternary
-      return comp === 0 ? '#b89c39'
+      return comp === gradesNewRecoveries[0] ? '#ccffcc'
         // eslint-disable-next-line no-nested-ternary
-        : comp <= 5000 ? '#4fa0b3'
+        : comp <= gradesNewRecoveries[1] ? '#1aff1a'
           // eslint-disable-next-line no-nested-ternary
-          : comp <= 50000 ? '#2368b8'
+          : comp <= gradesNewRecoveries[2] ? '#00e600'
             // eslint-disable-next-line no-nested-ternary
-            : comp <= 500000 ? '#0751a6'
-              : comp <= 1000000 ? '#053a78' : '#002045';
+            : comp <= gradesNewRecoveries[3] ? '#00b300'
+              : comp <= gradesNewRecoveries[4] ? '#008000' : '#004d00';
     }
     if (counter === 9) {
-      comp = ((searchData(currentCountryTofill).NewConfirmed) / 100000);
+      comp = ((searchData(currentCountryTofill).NewConfirmed) / population);
       // eslint-disable-next-line no-nested-ternary
-      return comp === 0 ? '#b89c39'
+      return comp === gradesNewCasesPer100K[0] ? '#b89c39'
         // eslint-disable-next-line no-nested-ternary
-        : comp <= 5000 ? '#4fa0b3'
+        : comp <= gradesNewCasesPer100K[1] ? '#4fa0b3'
           // eslint-disable-next-line no-nested-ternary
-          : comp <= 50000 ? '#2368b8'
+          : comp <= gradesNewCasesPer100K[2] ? '#2368b8'
             // eslint-disable-next-line no-nested-ternary
-            : comp <= 500000 ? '#0751a6'
-              : comp <= 1000000 ? '#053a78' : '#002045';
+            : comp <= gradesNewCasesPer100K[3] ? '#0751a6'
+              : comp <= gradesNewCasesPer100K[4] ? '#053a78' : '#002045';
     }
     if (counter === 10) {
-      comp = ((searchData(currentCountryTofill).NewDeaths) / 100000);
+      comp = ((searchData(currentCountryTofill).NewDeaths) / population);
       // eslint-disable-next-line no-nested-ternary
-      return comp === 0 ? '#b89c39'
+      return comp === gradesNewDeathsPer100K[0] ? '#ffd9b3'
         // eslint-disable-next-line no-nested-ternary
-        : comp <= 5000 ? '#4fa0b3'
+        : comp <= gradesNewDeathsPer100K[1] ? '#ffcc99'
           // eslint-disable-next-line no-nested-ternary
-          : comp <= 50000 ? '#2368b8'
+          : comp <= gradesNewDeathsPer100K[2] ? '#ffb366'
             // eslint-disable-next-line no-nested-ternary
-            : comp <= 500000 ? '#0751a6'
-              : comp <= 1000000 ? '#053a78' : '#002045';
+            : comp <= gradesNewDeathsPer100K[3] ? '#ff9933'
+              : comp <= gradesNewDeathsPer100K[4] ? '#cc6600' : '#994d00';
     }
     if (counter === 11) {
-      comp = ((searchData(currentCountryTofill).NewRecovered) / 100000);
+      comp = ((searchData(currentCountryTofill).NewRecovered) / population);
       // eslint-disable-next-line no-nested-ternary
-      return comp === 0 ? '#b89c39'
+      return comp === gradesNewRecoveriesPer100K[0] ? '#ccffcc'
         // eslint-disable-next-line no-nested-ternary
-        : comp <= 5000 ? '#4fa0b3'
+        : comp <= gradesNewRecoveriesPer100K[1] ? '#1aff1a'
           // eslint-disable-next-line no-nested-ternary
-          : comp <= 50000 ? '#2368b8'
+          : comp <= gradesNewRecoveriesPer100K[2] ? '#00e600'
             // eslint-disable-next-line no-nested-ternary
-            : comp <= 500000 ? '#0751a6'
-              : comp <= 1000000 ? '#053a78' : '#002045';
+            : comp <= gradesNewRecoveriesPer100K[3] ? '#00b300'
+              : comp <= gradesNewRecoveriesPer100K[4] ? '#008000' : '#004d00';
     }
     return comp;
   }
@@ -307,48 +320,160 @@ export default function mapBuilder(data) {
     if (counter === 9) {
       const current = countryToShowData && searchData(countryToShowData.name);
       this.div.innerHTML = `<h4> New cases per 100 k </h4>${current
-        ? `<b>${current.Country}</b><br />${(current.NewConfirmed) / 100000} New recoveries per 100k`
+        ? `<b>${current.Country}</b><br />${(current.NewConfirmed) / population} New recoveries per 100k`
         : 'Select country'}`;
     }
     if (counter === 10) {
       const current = countryToShowData && searchData(countryToShowData.name);
       this.div.innerHTML = `<h4> New deathes per 100 k </h4>${current
-        ? `<b>${current.Country}</b><br />${(current.NewDeaths) / 100000} New recoveries per 100k`
+        ? `<b>${current.Country}</b><br />${(current.NewDeaths) / population} New recoveries per 100k`
         : 'Select country'}`;
     }
     if (counter === 11) {
       const current = countryToShowData && searchData(countryToShowData.name);
       this.div.innerHTML = `<h4> New recoveries per 100 k </h4>${current
-        ? `<b>${current.Country}</b><br />${(current.NewRecovered) / 100000} New recoveries per 100k`
+        ? `<b>${current.Country}</b><br />${(current.NewRecovered) / population} New recoveries per 100k`
         : 'Select country'}`;
     }
   };
   info.addTo(map);
   function getColor(param) {
-    // eslint-disable-next-line no-nested-ternary
-    return param === 0 ? '#b89c39'
+    if (counter === 0) {
       // eslint-disable-next-line no-nested-ternary
-      : param <= 5000 ? '#4fa0b3'
+      return param === gradesCases[0] ? '#b89c39'
         // eslint-disable-next-line no-nested-ternary
-        : param <= 50000 ? '#2368b8'
+        : param <= gradesCases[1] ? '#4fa0b3'
           // eslint-disable-next-line no-nested-ternary
-          : param <= 500000 ? '#0751a6'
-            : param <= 1000000 ? '#053a78' : '#002045';
+          : param <= gradesCases[2] ? '#2368b8'
+            // eslint-disable-next-line no-nested-ternary
+            : param <= gradesCases[3] ? '#0751a6'
+              : param <= gradesCases[4] ? '#053a78' : '#002045';
+    }
+    if (counter === 1) {
+      // eslint-disable-next-line no-nested-ternary
+      return param === gradesDeaths[0] ? '#ffd9b3'
+        // eslint-disable-next-line no-nested-ternary
+        : param <= gradesDeaths[1] ? '#ffcc99'
+          // eslint-disable-next-line no-nested-ternary
+          : param <= gradesDeaths[2] ? '#ffb366'
+            // eslint-disable-next-line no-nested-ternary
+            : param <= gradesDeaths[3] ? '#ff9933'
+              : param <= gradesDeaths[4] ? '#cc6600' : '#994d00';
+    }
+    if (counter === 2) {
+      // eslint-disable-next-line no-nested-ternary
+      return param === gradesRecoveries[0] ? '#ccffcc'
+        // eslint-disable-next-line no-nested-ternary
+        : param <= gradesRecoveries[1] ? '#1aff1a'
+          // eslint-disable-next-line no-nested-ternary
+          : param <= gradesRecoveries[2] ? '#00e600'
+            // eslint-disable-next-line no-nested-ternary
+            : param <= gradesRecoveries[3] ? '#00b300'
+              : param <= gradesRecoveries[4] ? '#008000' : '#004d00';
+    }
+    if (counter === 3) {
+      // eslint-disable-next-line no-nested-ternary
+      return param === gradesCasesPer100K[0] ? '#b89c39'
+        // eslint-disable-next-line no-nested-ternary
+        : param <= gradesCasesPer100K[1] ? '#4fa0b3'
+          // eslint-disable-next-line no-nested-ternary
+          : param <= gradesCasesPer100K[2] ? '#2368b8'
+            // eslint-disable-next-line no-nested-ternary
+            : param <= gradesCasesPer100K[3] ? '#0751a6'
+              : param <= gradesCasesPer100K[4] ? '#053a78' : '#002045';
+    }
+    if (counter === 4) {
+      // eslint-disable-next-line no-nested-ternary
+      return param === gradesDeathsPer100K[0] ? '#ffd9b3'
+        // eslint-disable-next-line no-nested-ternary
+        : param <= gradesDeathsPer100K[1] ? '#ffcc99'
+          // eslint-disable-next-line no-nested-ternary
+          : param <= gradesDeathsPer100K[2] ? '#ffb366'
+            // eslint-disable-next-line no-nested-ternary
+            : param <= gradesDeathsPer100K[3] ? '#ff9933'
+              : param <= gradesDeathsPer100K[4] ? '#cc6600' : '#994d00';
+    }
+    if (counter === 5) {
+      // eslint-disable-next-line no-nested-ternary
+      return param === gradesRecoveriesPer100K[0] ? '#ccffcc'
+        // eslint-disable-next-line no-nested-ternary
+        : param <= gradesRecoveriesPer100K[1] ? '#1aff1a'
+          // eslint-disable-next-line no-nested-ternary
+          : param <= gradesRecoveriesPer100K[2] ? '#00e600'
+            // eslint-disable-next-line no-nested-ternary
+            : param <= gradesRecoveriesPer100K[3] ? '#00b300'
+              : param <= gradesRecoveriesPer100K[4] ? '#008000' : '#004d00';
+    }
+    if (counter === 6) {
+      // eslint-disable-next-line no-nested-ternary
+      return param === gradesNewCases[0] ? '#b89c39'
+        // eslint-disable-next-line no-nested-ternary
+        : param <= gradesNewCases[1] ? '#4fa0b3'
+          // eslint-disable-next-line no-nested-ternary
+          : param <= gradesNewCases[2] ? '#2368b8'
+            // eslint-disable-next-line no-nested-ternary
+            : param <= gradesNewCases[3] ? '#0751a6'
+              : param <= gradesNewCases[4] ? '#053a78' : '#002045';
+    }
+    if (counter === 7) {
+      // eslint-disable-next-line no-nested-ternary
+      return param === gradesNewDeaths[0] ? '#ffd9b3'
+        // eslint-disable-next-line no-nested-ternary
+        : param <= gradesNewDeaths[1] ? '#ffcc99'
+          // eslint-disable-next-line no-nested-ternary
+          : param <= gradesNewDeaths[2] ? '#ffb366'
+            // eslint-disable-next-line no-nested-ternary
+            : param <= gradesNewDeaths[3] ? '#ff9933'
+              : param <= gradesNewDeaths[4] ? '#cc6600' : '#994d00';
+    }
+    if (counter === 8) {
+      // eslint-disable-next-line no-nested-ternary
+      return param === gradesNewRecoveries[0] ? '#ccffcc'
+        // eslint-disable-next-line no-nested-ternary
+        : param <= gradesNewRecoveries[1] ? '#1aff1a'
+          // eslint-disable-next-line no-nested-ternary
+          : param <= gradesNewRecoveries[2] ? '#00e600'
+            // eslint-disable-next-line no-nested-ternary
+            : param <= gradesNewRecoveries[3] ? '#00b300'
+              : param <= gradesNewRecoveries[4] ? '#008000' : '#004d00';
+    }
+    if (counter === 9) {
+      // eslint-disable-next-line no-nested-ternary
+      return param === gradesNewCasesPer100K[0] ? '#b89c39'
+        // eslint-disable-next-line no-nested-ternary
+        : param <= gradesNewCasesPer100K[1] ? '#4fa0b3'
+          // eslint-disable-next-line no-nested-ternary
+          : param <= gradesNewCasesPer100K[2] ? '#2368b8'
+            // eslint-disable-next-line no-nested-ternary
+            : param <= gradesNewCasesPer100K[3] ? '#0751a6'
+              : param <= gradesNewCasesPer100K[4] ? '#053a78' : '#002045';
+    }
+    if (counter === 10) {
+      // eslint-disable-next-line no-nested-ternary
+      return param === gradesNewDeathsPer100K[0] ? '#ffd9b3'
+        // eslint-disable-next-line no-nested-ternary
+        : param <= gradesNewDeathsPer100K[1] ? '#ffcc99'
+          // eslint-disable-next-line no-nested-ternary
+          : param <= gradesNewDeathsPer100K[2] ? '#ffb366'
+            // eslint-disable-next-line no-nested-ternary
+            : param <= gradesNewDeathsPer100K[3] ? '#ff9933'
+              : param <= gradesNewDeathsPer100K[4] ? '#cc6600' : '#994d00';
+    }
+    if (counter === 11) {
+      // eslint-disable-next-line no-nested-ternary
+      return param === gradesNewRecoveriesPer100K[0] ? '#ccffcc'
+        // eslint-disable-next-line no-nested-ternary
+        : param <= gradesNewRecoveriesPer100K[1] ? '#1aff1a'
+          // eslint-disable-next-line no-nested-ternary
+          : param <= gradesNewRecoveriesPer100K[2] ? '#00e600'
+            // eslint-disable-next-line no-nested-ternary
+            : param <= gradesNewRecoveriesPer100K[3] ? '#00b300'
+              : param <= gradesNewRecoveriesPer100K[4] ? '#008000' : '#004d00';
+    }
+    return param;
   }
   legend.onAdd = function (map) {
     const div = L.DomUtil.create('div', 'info legeng');
-    const gradesCases = [0, 5000, 50000, 500000, 1000000];
-    const gradesDeaths = [0, 5000, 50000, 500000, 1000000];
-    const gradesRecoveries = [0, 5000, 50000, 500000, 1000000];
-    const gradesCasesPer100K = [0, 5000, 50000, 500000, 1000000];
-    const gradesDeathsPer100K = [0, 5000, 50000, 500000, 1000000];
-    const gradesRecoveriesPer100K = [0, 5000, 50000, 500000, 1000000];
-    const gradesNewCases = [0, 5000, 50000, 500000, 1000000];
-    const gradesNewDeaths = [0, 5000, 50000, 500000, 1000000];
-    const gradesNewRecoveries = [0, 5000, 50000, 500000, 1000000];
-    const gradesNewCasesPer100K = [0, 5000, 50000, 500000, 1000000];
-    const gradesNewDeathsPer100K = [0, 5000, 50000, 500000, 1000000];
-    const gradesNewRecoveriesPer100K = [0, 5000, 50000, 500000, 1000000];
     if (counter === 0) {
       for (let i = 0; i < gradesCases.length; i += 1) {
         div.innerHTML
