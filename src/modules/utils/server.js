@@ -8,6 +8,7 @@ export function reqGlobalData(dataTable) {
       storage('Global data', data.Global);
       storage('Global', data);
       storage('Current Day', data.Date);
+      storage('Countries data', data.Countries);
       // eslint-disable-next-line no-param-reassign
       dataTable.innerHTML = `
       <ul>
