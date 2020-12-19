@@ -1,151 +1,153 @@
-import '../utils/helpers';
-import create from '../utils/helpers';
+import ScheduleDiseases from './ScheduleDiseases.component';
+import create, { storage, removeElement } from '../utils/helpers';
+import { requestCountryData } from '../utils/server';
+import countries from '../data/countries.data';
 
-const arrowLeftBlock = create('div', 'list-listHeader__left list__arrows');
-const arrowRightBlock = create('div', 'list-listHeader__right list__arrows');
-const leftArrow = create('span', 'material-icons');
-const rightArrow = create('span', 'material-icons');
-const list = document.querySelector('.list');
-const listHeader = create('div', 'list-listHeader');
-const listHeaderInfo = create('div', 'listHeader__info')
-const listHeaderTitleText = create('span', 'list-listHeader__title');
-const listHeaderTitleAmount = create('span', 'list-listHeader__amount');
-const listOfCountries = create('div', 'list-countries');
-const listOfCountriesUl = create('ul', 'list-countries-ul');
-const headerArr = ['Global confirmed', 'Global deaths', 'Global recovered'];
-const countriesArr = ['Confirmed', 'Deths', 'Recovered'];
-const requestOptions = {
-  method: 'GET',
-  redirect: 'follow'
-};
-let seted = false;
-let resultGlobal;
-let counter = 0;
-function sortResultByCurrentCattegory(counter) {
-  let res;
-  switch (counter) {
-    case 1:
-      res = resultGlobal.Countries.sort((a, b) => b.TotalDeaths - a.TotalDeaths);
-      break;
-    case 2:
-      res = resultGlobal.Countries.sort((a, b) => b.TotalRecovered - a.TotalRecovered);
-      break;
-    default:
-      res = resultGlobal.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
-      break;
+export default class CountryList {
+  allCountries(sortType) {
+    this.bar = 'Hello world';
+    const list = document.querySelector('.list');
+    const dataTable = document.querySelector('.dataTable');
+    removeElement('.dataList');
+    const dataList = create('div', 'dataList');
+
+    const data = sortType || storage('Global').Countries;
+
+    data.map((country) => {
+      const countryFlag = countries.filter((el) => el.name === country.Country)[0];
+      if (countryFlag) {
+        const countyInner = create('div', 'country-inner');
+        const flagImg = create('img');
+        flagImg.src = countryFlag.flag;
+
+        const cntr = create('span');
+        cntr.textContent = country.Country;
+
+        const cases = create('p');
+        cases.textContent = `Cases: ${country.TotalConfirmed} Recovered: ${country.TotalRecovered} Deaths: ${country.TotalDeaths}`;
+
+        countyInner.addEventListener('click', () => {
+          requestCountryData(countryFlag.name, dataTable);
+          new ScheduleDiseases().createSchedule(countryFlag.name);
+        });
+
+        countyInner.append(flagImg);
+        countyInner.append(cntr);
+        countyInner.append(cases);
+        dataList.append(countyInner);
+      }
+
+      return undefined;
+    });
+
+    list.append(dataList);
   }
-  return res;
-}
-function sendData(data) {
-  console.log(data);
-}
-function changeEl(el, toChange) {
-  el.innerHTML = `${toChange}`;
-}
-function clearEl(el) {
-  el.innerHTML = '';
-}
-function getCountryData(currentCountry, counter) {
-  let res;
-  switch (counter) {
-    case 1:
-      res = currentCountry.TotalDeaths;
-      break;
-    case 2:
-      res = currentCountry.TotalRecovered;
-      break;
-    default:
-      res = currentCountry.TotalConfirmed;
-      break;
-  }
-  return res;
-}
-function countriesListBuilder() {
-  sortResultByCurrentCattegory(counter).forEach(el => {
-    const country = create('li', 'list-countries-ul__li');
-    const countryNameBlock = create('div', 'li__nameblock');
-    const countrytInfoBLock = create('div', 'li__infoblock');
-    const countryName = create('span', 'nameblock__name');
-    const src = (el.CountryCode);
-    const countryFlag = create('img', 'nameblock__flag', ['src', `https://www.countryflags.io/${src}/flat/32.png`]);
-    countryName.innerHTML = `${el.Country}`;
-    countryNameBlock.appendChild(countryName);
-    countryNameBlock.appendChild(countryFlag);
-    countrytInfoBLock.innerHTML = `${countriesArr[counter]}: ${getCountryData(el, counter)}`;
-    country.appendChild(countryNameBlock);
-    country.appendChild(countrytInfoBLock);
-    listOfCountriesUl.appendChild(country);
-    country.addEventListener('click', () => {
-      if (!seted) {
-        seted = true;
-        country.classList.add('set');
-        sendData(el); // It sends the object of current country
+
+  createList() {
+    this.bar = 'Hello world';
+    this.allCountries();
+
+    const formData = document.querySelector('.form-list');
+    const input = document.querySelector('#country-list');
+    const dataTable = document.querySelector('.dataTable');
+    // const dataList = document.querySelector('.dataList');
+
+    formData.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let cptName = input.value;
+      cptName = cptName.substr(0, 1).toUpperCase() + cptName.substr(1);
+      const countryFlag = countries
+        .filter((el) => el.name === cptName)[0];
+      console.log('countryFlag', cptName);
+      if (countryFlag) {
+        requestCountryData(cptName, dataTable);
+        new ScheduleDiseases().createSchedule(cptName);
       } else {
-        document.querySelector('.set').classList.remove('set');
-        country.classList.add('set');
-        sendData(el);
+        dataTable.innerHTML = 'Invalid Data';
       }
     });
-  });
-}
-function headerInfoBuilder() {
-  leftArrow.innerHTML = 'arrow_left';
-  rightArrow.innerHTML = 'arrow_right';
-  arrowLeftBlock.appendChild(leftArrow);
-  arrowRightBlock.appendChild(rightArrow);
-  listHeaderInfo.appendChild(listHeaderTitleText);
-  listHeaderInfo.appendChild(listHeaderTitleAmount);
-  listHeaderTitleText.innerHTML = headerArr[counter];
-  listHeaderTitleAmount.innerHTML = resultGlobal.Global.TotalConfirmed;
-  listHeader.appendChild(arrowLeftBlock);
-  listHeader.appendChild(listHeaderInfo);
-  listHeader.appendChild(arrowRightBlock);
-  listOfCountries.appendChild(listOfCountriesUl);
-  list.appendChild(listHeader);
-  list.appendChild(listOfCountries);
-  leftArrow.addEventListener('click', () => {
-    counter = (counter) ? counter - 1 : 2;
-    arrowClick(counter);
-    seted = false;
-  });
-  rightArrow.addEventListener('click', () => {
-    counter = Math.abs(counter + 1) % 3;
-    arrowClick(counter);
-    seted = false;
-  });
-}
-function arrowClick(counter) {
-  switch (counter) {
-    case 1:
-      clearEl(listOfCountriesUl);
-      changeEl(listHeaderTitleText, headerArr[counter]);
-      changeEl(listHeaderTitleAmount, resultGlobal.Global.TotalDeaths);
-      countriesListBuilder();
-      break;
-    case 2:
-      clearEl(listOfCountriesUl);
-      changeEl(listHeaderTitleText, headerArr[counter]);
-      changeEl(listHeaderTitleAmount, resultGlobal.Global.TotalRecovered);
-      countriesListBuilder();
-      break;
-    default:
-      clearEl(listOfCountriesUl);
-      changeEl(listHeaderTitleText, headerArr[counter]);
-      changeEl(listHeaderTitleAmount, resultGlobal.Global.TotalConfirmed);
-      countriesListBuilder();
-      break;
+
+    input.addEventListener('input', (event) => {
+      removeElement('.dataList');
+      const dataListSearch = create('div', 'dataList');
+      const list = document.querySelector('.list');
+      list.append(dataListSearch);
+
+      fetch('https://api.covid19api.com/summary')
+        .then((data) => data.json())
+        .then((arr) => {
+          const searchingCountryData = arr.Countries
+            .filter((el) => el.Country.toLowerCase().startsWith(event.target.value));
+          searchingCountryData.forEach((country) => {
+            const countryFlag = countries.filter((el) => el.name === country.Country)[0];
+            if (countryFlag) {
+              const countyInner = create('div', 'country-inner');
+              const flagImg = create('img');
+              flagImg.src = countryFlag.flag;
+
+              const cntr = create('span');
+              cntr.textContent = country.Country;
+
+              countyInner.addEventListener('click', () => {
+                requestCountryData(countryFlag.name, dataTable);
+                new ScheduleDiseases().createSchedule(countryFlag.name);
+              });
+
+              countyInner.append(flagImg);
+              countyInner.append(cntr);
+              // dataList.append(countyInner);
+              dataListSearch.append(countyInner);
+            }
+
+            return undefined;
+          });
+        });
+    });
+  }
+
+  sortList() {
+    this.bar = 'Hello World';
+    const casesBtn = document.querySelector('.sort-cases');
+    const recoveredBtn = document.querySelector('.sort-recovered');
+    const deathsBtn = document.querySelector('.sort-deaths');
+    const sortIcon = document.querySelector('.sort-icon');
+    let data = storage('Global').Countries;
+    let position = true;
+
+    casesBtn.addEventListener('click', () => {
+      if (position) {
+        data = data.sort((a, b) => a.TotalConfirmed - b.TotalConfirmed);
+        sortIcon.textContent = 'keyboard_arrow_down';
+      } else {
+        data = data.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
+        sortIcon.textContent = 'keyboard_arrow_up';
+      }
+      new CountryList().allCountries(data);
+      position = !position;
+    });
+
+    recoveredBtn.addEventListener('click', () => {
+      if (position) {
+        data = data.sort((a, b) => a.TotalRecovered - b.TotalRecovered);
+        sortIcon.textContent = 'keyboard_arrow_down';
+      } else {
+        data = data.sort((a, b) => b.TotalRecovered - a.TotalRecovered);
+        sortIcon.textContent = 'keyboard_arrow_up';
+      }
+      new CountryList().allCountries(data);
+      position = !position;
+    });
+
+    deathsBtn.addEventListener('click', () => {
+      if (position) {
+        data = data.sort((a, b) => a.TotalDeaths - b.TotalDeaths);
+        sortIcon.textContent = 'keyboard_arrow_down';
+      } else {
+        data = data.sort((a, b) => b.TotalDeaths - a.TotalDeaths);
+        sortIcon.textContent = 'keyboard_arrow_up';
+      }
+      new CountryList().allCountries(data);
+      position = !position;
+    });
   }
 }
-
-function getData(result) {
-  resultGlobal = result;
-  headerInfoBuilder();
-  countriesListBuilder();
-}
-
-window.onload = function () {
-  fetch("https://api.covid19api.com/summary", requestOptions)
-    .then(response => response.json())
-    .then(result => getData(result))
-    .catch(error => console.log('error', error));
-};

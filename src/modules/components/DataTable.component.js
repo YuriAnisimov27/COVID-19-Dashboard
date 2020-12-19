@@ -1,7 +1,6 @@
 import create from '../utils/helpers';
 import {
   reqGlobalData,
-  requestCountryData,
   requestCurrentDayData,
   requestTotalCountDataPer100k,
   requestCurrentDayDataPer100k,
@@ -9,46 +8,12 @@ import {
 } from '../utils/server';
 
 export default class DataTable {
-  checkCountry() {
-    this.bar = 'Hello world';
-  }
-
   createTable() {
     const table = document.querySelector('.table');
-    const formData = document.querySelector('form');
-    const input = document.querySelector('#country');
-    const statusSpan = document.querySelector('.table-btn__info');
-
     const dataTable = create('div', 'dataTable');
     table.append(dataTable);
 
     reqGlobalData(dataTable);
-
-    formData.addEventListener('submit', (e) => {
-      e.preventDefault();
-      requestCountryData(input.value, dataTable);
-      input.value = '';
-    });
-
-    input.addEventListener('input', (event) => {
-      dataTable.innerHTML = '';
-      fetch('https://api.covid19api.com/summary')
-        .then((data) => data.json())
-        .then((arr) => {
-          const searchingCountryData = arr.Countries
-            .filter((el) => el.Country.toLowerCase().startsWith(event.target.value));
-          searchingCountryData.forEach((el) => {
-            const itemCountry = create('p');
-            itemCountry.textContent = el.Country;
-            itemCountry.addEventListener('click', () => {
-              input.value = itemCountry.textContent;
-              requestCountryData(input.value, dataTable);
-              statusSpan.textContent = 'Dashboard navigation';
-            });
-            dataTable.append(itemCountry);
-          });
-        });
-    });
 
     this.changeData();
   }
@@ -63,30 +28,42 @@ export default class DataTable {
     const dataTable = document.querySelector('.dataTable');
     statusSpan.textContent = informationList[counter];
 
-    function updateStatusrData(index) {
+    function updateStatusrData(index, country) {
       statusSpan.textContent = informationList[index];
       switch (index) {
         case 1:
-          requestCurrentDayData(dataTable);
+          requestCurrentDayData(dataTable, country);
           return;
         case 2:
-          requestTotalCountDataPer100k(dataTable);
+          requestTotalCountDataPer100k(dataTable, country);
           return;
         case 3:
-          requestCurrentDayDataPer100k(dataTable);
+          requestCurrentDayDataPer100k(dataTable, country);
           return;
         default:
-          requestTotalCountData(dataTable);
+          requestTotalCountData(dataTable, country);
       }
     }
 
+    const countryTitle = document.querySelector('.table-nav__title');
+
     leftArrow.addEventListener('click', () => {
       counter = (counter) ? counter - 1 : 3;
-      updateStatusrData(counter);
+      if (countryTitle.textContent !== 'World Data') {
+        const country = countryTitle.textContent.replaceAll('"', '');
+        updateStatusrData(counter, country);
+      } else {
+        updateStatusrData(counter);
+      }
     });
     rightArrow.addEventListener('click', () => {
       counter = Math.abs(counter + 1) % 4;
-      updateStatusrData(counter);
+      if (countryTitle.textContent !== 'World Data') {
+        const country = countryTitle.textContent.replaceAll('"', '');
+        updateStatusrData(counter, country);
+      } else {
+        updateStatusrData(counter);
+      }
     });
   }
 }
