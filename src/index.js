@@ -4,7 +4,7 @@ import ScheduleDiseases from './modules/components/ScheduleDiseases.component';
 import './css/style.css';
 import './css/list.css';
 import './css/map.css';
-import './modules/components/CountryList.component';
+// import './modules/components/CountryList.component';
 import mapBuilder from './modules/components/DiseaseMap.component';
 import { storage } from './modules/utils/helpers';
 

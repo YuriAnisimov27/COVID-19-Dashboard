@@ -58,7 +58,6 @@ export default class CountryList {
       cptName = cptName.substr(0, 1).toUpperCase() + cptName.substr(1);
       const countryFlag = countries
         .filter((el) => el.name === cptName)[0];
-      console.log('countryFlag', cptName);
       if (countryFlag) {
         requestCountryData(cptName, dataTable);
         new ScheduleDiseases().createSchedule(cptName);
