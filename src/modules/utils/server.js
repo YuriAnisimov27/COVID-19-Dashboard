@@ -56,7 +56,6 @@ export function requestTotalCountDataPer100k(dataTable, country) {
   const population = country
     ? countries.filter((el) => el.name === country)[0].population
     : 7800000000;
-  console.log('population', population);
   const dataTableClone = dataTable;
   dataTableClone.innerHTML = `
   <ul>
@@ -94,7 +93,6 @@ export function requestCountryData(country, dataTable) {
   const title = document.querySelector('.table-nav__title');
   const img = document.querySelector('.table-nav__img');
   const currentCountry = countries.filter((el) => el.name === country)[0];
-  console.log('currentCountry', currentCountry);
   fetch('https://api.covid19api.com/summary')
     .then((data) => data.json())
     .then((data) => {
@@ -119,10 +117,10 @@ export function requestCountryData(country, dataTable) {
     .catch((err) => console.error(err));
 }
 
-export async function getCountrySchedule(country, from, to) {
+export async function getCountrySchedule(country, param, from, to) {
   const dates = [];
   const cases = [];
-  await fetch(`https://api.covid19api.com/country/${country}/status/confirmed?from=${from}&to=${to}`)
+  await fetch(`https://api.covid19api.com/country/${country}/status/${param}?from=${from}&to=${to}`)
     .then((data) => data.json())
     .then((data) => data.map((el) => {
       dates.push(new Date(el.Date).toLocaleDateString());

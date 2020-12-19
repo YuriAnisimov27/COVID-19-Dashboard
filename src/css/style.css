@@ -48,21 +48,25 @@ body {
   cursor: pointer;
 }
 
-.table-nav, .list-nav {
+.table-nav, .list-nav, .schedule-nav {
   width: 100%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
 }
 
-.table-btn__info, .list-btn__info {
+.schedule-nav {
+  margin-bottom: -3px;
+}
+
+.table-btn__info, .list-btn__info, .schedule-btn__info {
   text-align: center;
   width: 300px;
   height: 20px;
   color: #fff;
 }
 
-.table-btn__left, .table-btn__right, .list-btn__left, .list-btn__right {
+.table-btn__left, .table-btn__right, .list-btn__left, .list-btn__right, .schedule-btn__left, .schedule-btn__right {
   cursor: pointer;
 }
 
@@ -81,6 +85,8 @@ body {
   height: 300px;
   border: 1px solid #eee;
   color: #aaa;
+  box-sizing: border-box;
+  overflow-y: scroll;
 }
 
 .footer {
@@ -112,4 +118,5 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  /* color: rgb(44, 106, 240);   */
 }

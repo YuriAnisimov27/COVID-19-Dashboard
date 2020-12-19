@@ -33,11 +33,13 @@
         <button class="table-btn__right">
           <span class="material-icons">
             arrow_right
-            </span>
+          </span>
         </button>
       </div>
       <div class="table-nav__info">
-        <img class="table-nav__img" src="https://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2011/1/12/1294859657274/Earth-007.jpg" alt="country">
+        <img class="table-nav__img"
+          src="https://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2011/1/12/1294859657274/Earth-007.jpg"
+          alt="country">
         <h3 class="table-nav__title">World Data</h3>
       </div>
     </div>
@@ -52,10 +54,39 @@
           <input type="submit" value="Search!">
         </div>
       </form>
+      <div class="list-nav">
+        <button class="sort-cases">
+          cases
+        </button>
+        <button class="sort-recovered">
+          recovered
+        </button>
+        <button class="sort-deaths">
+          deaths
+        </button>
+        <span class="material-icons sort-icon">
+          keyboard_arrow_down
+        </span>
+      </div>
     </div>
 
     <div class="schedule">
-      <canvas height="290px" id="myChart"></canvas>
+      <div class="schedule-nav">
+        <button class="schedule-btn__left">
+          <span class="material-icons">
+            arrow_left
+          </span>
+        </button>
+        <span class="schedule-btn__info">
+          Global Cases
+        </span>
+        <button class="schedule-btn__right">
+          <span class="material-icons">
+            arrow_right
+          </span>
+        </button>
+      </div>
+      <canvas height="260px" id="myChart"></canvas>
     </div>
 
     <footer class="footer">
