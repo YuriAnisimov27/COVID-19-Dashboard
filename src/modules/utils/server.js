@@ -5,6 +5,7 @@ export function reqGlobalData(dataTable) {
     .then((data) => data.json())
     .then((data) => {
       storage('Global data', data.Global);
+      storage('Countries data', data.Countries);
       // eslint-disable-next-line no-param-reassign
       dataTable.innerHTML = `
       <ul>
@@ -47,11 +48,11 @@ export function requestTotalCountDataPer100k(dataTable) {
   dataTableClone.innerHTML = `
   <ul>
     <li>"Confirmed": ${((JSON.stringify(data.TotalConfirmed) / 7800000000) * 100000)
-    .toFixed(3)}</li>
+      .toFixed(3)}</li>
     <li>"Deaths": ${((JSON.stringify(data.TotalDeaths) / 7800000000) * 100000)
-    .toFixed(3)}</li>
+      .toFixed(3)}</li>
     <li>"Recovered": ${((JSON.stringify(data.TotalRecovered) / 7800000000) * 100000)
-    .toFixed(3)}</li>
+      .toFixed(3)}</li>
   </ul>
   `;
 }
@@ -62,11 +63,11 @@ export function requestCurrentDayDataPer100k(dataTable) {
   dataTableClone.innerHTML = `
   <ul>
     <li>"Confirmed": ${((JSON.stringify(data.NewConfirmed) / 7800000000) * 100000)
-    .toFixed(3)}</li>
+      .toFixed(3)}</li>
     <li>"Deaths": ${((JSON.stringify(data.NewDeaths) / 7800000000) * 100000)
-    .toFixed(3)}</li>
+      .toFixed(3)}</li>
     <li>"Recovered": ${((JSON.stringify(data.NewRecovered) / 7800000000) * 100000)
-    .toFixed(3)}</li>
+      .toFixed(3)}</li>
   </ul>
   `;
 }
