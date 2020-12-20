@@ -9,6 +9,9 @@ body {
   padding: 0;
   font-family: Avenir Next W01, Avenir Next W00, Avenir Next, Avenir, Helvetica Neue, sans-serif;
 }
+button:focus {
+  outline: none;
+}
 ul {
   padding-left: 20px;
 }
@@ -69,7 +72,7 @@ li {
   overflow-y: scroll;
 }
 
-.dataList, .dataList {
+.dataList {
   box-sizing: border-box;
   overflow-y: hidden;
 }
@@ -199,6 +202,9 @@ li {
   width: 7px;
   }
   /* scroll custom */
+  canvas {
+    height: 260px;
+  }
   @media screen and (max-width:1024px) {
     .container {
       width: 100%;
@@ -208,7 +214,39 @@ li {
   @media screen and (max-width:970px) {
     .container {
       width: 100%;
-      flex-flow: column;
       align-items: center;
+    }
+    .list{
+      max-width: 50%;
+      width: 50%;
+    }
+    .table {
+      max-width: 50;
+      width: 50%;
+    }
+    .schedule {
+      max-width: 100%;
+      width: 100%;
+    }
+    canvas {
+      max-width: 100%;
+      width: 100%;
+      height: 300px;
+    }
+  }
+  @media screen and (max-width:550px) {
+    .list {
+      max-width: 100%;
+      width: 100%;
+    }
+    .table {
+      max-width: 100%;
+      width: 100%;
+    }
+    .leaflet-control-attribution {
+      opacity: 0;
+    }
+    .legendText{
+      font-size: 8px;
     }
   }

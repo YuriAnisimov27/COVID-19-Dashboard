@@ -102,3 +102,12 @@
   color:#e65425;
   outline: none;
 }
+.listSpanCases {
+  color: #2c4be5;
+}
+.listSpanDeaths {
+  color: red;
+}
+.listSpanRecovered {
+  color: #00b300;
+}
