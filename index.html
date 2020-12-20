@@ -19,7 +19,7 @@
 
   <div class="container">
     <header class="header">
-      header
+      Covid-19 Dashboard
     </header>
 
     <div class="map" id='mapBlock'>
@@ -51,24 +51,29 @@
     </div>
 
     <div class="list">
+      <div class="list-inputBlock">
+        <div><button class='virtKeyboard'><span class="material-icons keyboardIcon">
+          keyboard
+          </span></button></div>
       <form action="" method="get" class="form-list">
         <div class="form-example">
-          <label for="name">Enter country: </label>
-          <input type="text" name="country" id="country-list" placeholder="enter country" required>
+          <input class="list-input" type="text" name="country" id="country-list" placeholder="Search" required>
+          <button class='searchbtn'><span class="material-icons loopIcon">
+            search
+            </span></button>
         </div>
-        <div class="form-example">
-          <input type="submit" value="Search!">
-        </div>
+          <!-- <input type="submit" value="Search!"> -->
       </form>
+    </div>
       <div class="list-nav">
-        <button class="sort-cases">
-          cases
+        <button class="sort-cases sortbtn">
+          Cases
         </button>
-        <button class="sort-recovered">
-          recovered
+        <button class="sort-recovered sortbtn">
+          Recovered
         </button>
-        <button class="sort-deaths">
-          deaths
+        <button class="sort-deaths sortbtn">
+          Deaths
         </button>
         <span class="material-icons sort-icon">
           keyboard_arrow_down

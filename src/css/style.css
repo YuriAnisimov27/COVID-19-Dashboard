@@ -1,14 +1,37 @@
+/* background linear-gradient(346deg, rgba(53, 1, 36, 1) 0%, rgba(20, 20, 34, 1) 53%, rgba(92, 18, 18, 0.9699230033810399) 98%); 
+border =  #84848b
+*/
+
 body {
-  background: linear-gradient(17deg, rgb(30, 1, 105), rgb(100, 2, 2));
+  background: rgb(53, 1, 36);
+  background: linear-gradient(346deg, rgba(53, 1, 36, 1) 0%, rgba(20, 20, 34, 1) 53%, rgba(92, 18, 18, 0.9699230033810399) 98%);
   margin: 0;
   padding: 0;
+  font-family: Avenir Next W01, Avenir Next W00, Avenir Next, Avenir, Helvetica Neue, sans-serif;
 }
-
+ul {
+  padding-left: 20px;
+}
+li {
+  padding-top: 10px;
+  list-style: none;
+}
+.numberOf {
+  color:red;
+  padding-left: 10px;
+}
+.numberOfrec {
+  color:rgb(0, 179, 0);
+  padding-left: 10px;
+}
+.numberOfconf {
+  color: #2c4be5
+}
 .container {
   width: 1024px;
-  height: 768px;
   margin: auto;
-  border: 1px solid #eee;
+  border: 1px solid #84848b;
+  background: #141422;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -16,32 +39,39 @@ body {
 }
 
 .header {
-  height: 50px;
+  display: flex;
+  align-items: center;
+  height: 40px;
   width: 100%;
-  border: 1px solid #eee;
+  padding-left: 5px;
+  border: 1px solid #84848b;
+  font-family: "Avenir Next W01", "Avenir Next W00", "Avenir Next", Avenir, "Helvetica Neue", sans-serif;
+  font-size: 1.2rem;
+  background: #141422;
   color: #aaa;
 }
 
 .map {
   width: 100%;
   height: 330px;
-  border: 1px solid #eee;
+  border: 1px solid #84848b;
   color: #aaa;
 }
 
 .table {
-  width: 30%;
+  width: 100%;
+  max-width: 320px;
   height: 300px;
-  border: 1px solid #eee;
+  border: 1px solid #84848b;
   color: #aaa;
-  padding: 20px;
+  padding: 5px;
   box-sizing: border-box;
   overflow-y: scroll;
 }
 
 .dataList, .dataList {
   box-sizing: border-box;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
 .table p, .list p {
@@ -52,11 +82,15 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 25px;
+}
+
+.list-nav {
+  margin-bottom: 15px;
 }
 
 .schedule-nav {
   margin-bottom: -3px;
+  padding-top: 5px;
 }
 
 .table-btn__info, .list-btn__info, .schedule-btn__info {
@@ -64,35 +98,41 @@ body {
   width: 300px;
   height: 20px;
   color: #fff;
+  font-size: 1.2rem;
 }
 
 .table-btn__left, .table-btn__right, .list-btn__left, .list-btn__right, .schedule-btn__left, .schedule-btn__right {
   cursor: pointer;
+  background: none;
+  border: none;
+  color: #e65425;
 }
 
 .list {
-  width: 30%;
+  width: 100%;
+  max-width: 320px;
   height: 300px;
-  border: 1px solid #eee;
+  border: 1px solid #84848b;
   color: #aaa;
-  padding: 20px;
+  padding: 10px;
   box-sizing: border-box;
   overflow-y: scroll;
 }
 
 .schedule {
-  width: 30%;
+  width: 100%;
+  max-width: 320px;
   height: 300px;
-  border: 1px solid #eee;
+  border: 1px solid #84848b;
   color: #aaa;
   box-sizing: border-box;
   overflow-y: scroll;
 }
 
 .footer {
-  height: 50px;
+  height: 46px;
   width: 100%;
-  border: 1px solid #eee;
+  border: 1px solid #84848b;
   color: #aaa;
 }
 
@@ -115,8 +155,60 @@ body {
 .table-nav__info {
   width: 100%;
   height: 40px;
+  padding-top: 45px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   /* color: rgb(44, 106, 240);   */
 }
+
+.table-nav__title {
+  font-size: 0.9rem;
+  text-align: center;
+}
+/* scroll custom */
+::-webkit-scrollbar-button {
+  background-image:url('');
+  background-repeat:no-repeat;
+  width:5px;
+  height:0px
+  }
+  
+  ::-webkit-scrollbar-track {
+  background-color:#080817;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  background-color:#e65425;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover{
+  background-color:#56999f;
+  }
+  
+  ::-webkit-resizer{
+  background-image:url('');
+  background-repeat:no-repeat;
+  width:4px;
+  height:0px
+  }
+  
+  ::-webkit-scrollbar{
+  width: 7px;
+  }
+  /* scroll custom */
+  @media screen and (max-width:1024px) {
+    .container {
+      width: 100%;
+    }
+
+  }
+  @media screen and (max-width:970px) {
+    .container {
+      width: 100%;
+      flex-flow: column;
+      align-items: center;
+    }
+  }
