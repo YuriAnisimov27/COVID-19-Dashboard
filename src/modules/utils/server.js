@@ -118,6 +118,31 @@ export function requestCountryData(country, dataTable) {
     .catch((err) => console.error(err));
 }
 
+export async function getGlobalSchedule(status) {
+  const dates = [];
+  const cases = [];
+  let statusEdit;
+  if (status === 'deaths') {
+    statusEdit = 'total_deaths';
+  } else if (status === 'recovered') {
+    statusEdit = 'total_recovered';
+  } else {
+    statusEdit = 'total_cases';
+  }
+  await fetch('https://covid19-api.org/api/timeline')
+    .then((data) => data.json())
+    .then((data) => data.map((el) => {
+      dates.push(new Date(el.last_update).toLocaleDateString());
+      cases.push(+el[statusEdit]);
+      return { dates, cases };
+    }));
+  dates.length = 100;
+  dates.reverse();
+  cases.reverse().length = 100;
+
+  return { dates, cases };
+}
+
 export async function getCountrySchedule(country, param, from, to) {
   const dates = [];
   const cases = [];

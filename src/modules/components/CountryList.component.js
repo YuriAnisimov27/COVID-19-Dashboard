@@ -94,7 +94,6 @@ export default class CountryList {
 
               countyInner.append(flagImg);
               countyInner.append(cntr);
-              // dataList.append(countyInner);
               dataListSearch.append(countyInner);
             }
 
