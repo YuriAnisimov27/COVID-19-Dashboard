@@ -61,9 +61,9 @@ export function requestCurrentDayData(dataTable, country) {
   const dataTableClone = dataTable;
   dataTableClone.innerHTML = `
   <ul>
-    <li>Last Day Confirmed: <span class='numberOfconf'> ${JSON.stringify(data.todayCases)}</span></li>
-    <li>Last Day Deaths: <span class='numberOf'>${JSON.stringify(data.todayDeaths)}</span></li>
-    <li>Last Day Recovered: <span class='numberOfrec'>${JSON.stringify(data.todayRecovered)}</span></li>
+    <li>Last Day Confirmed: <span class='numberOfconf'> ${JSON.stringify(data.todayCases) && 'No Data'}</span></li>
+    <li>Last Day Deaths: <span class='numberOf'>${JSON.stringify(data.todayDeaths) && 'No Data'}</span></li>
+    <li>Last Day Recovered: <span class='numberOfrec'>${JSON.stringify(data.todayRecovered) && 'No Data'}</span></li>
   </ul>
   `;
 }
@@ -75,9 +75,9 @@ export function requestTotalCountDataPer100k(dataTable, country) {
   const dataTableClone = dataTable;
   dataTableClone.innerHTML = `
   <ul>
-    <li>Confirmed: <span class='numberOfconf'> ${(JSON.stringify(data.casesPerOneMillion) * 10)}</span></li>
-    <li>Deaths: <span class='numberOf'> ${(JSON.stringify(data.deathsPerOneMillion) * 10)}</span></li>
-    <li>Recovered: <span class='numberOfrec'> ${(JSON.stringify(data.recoveredPerOneMillion) * 10)}</span></li>
+    <li>Confirmed: <span class='numberOfconf'> ${(JSON.stringify(data.casesPerOneMillion) * 10) && 'No Data'}</span></li>
+    <li>Deaths: <span class='numberOf'> ${(JSON.stringify(data.deathsPerOneMillion) * 10) && 'No Data'}</span></li>
+    <li>Recovered: <span class='numberOfrec'> ${(JSON.stringify(data.recoveredPerOneMillion) * 10) && 'No Data'}</span></li>
   </ul>
   `;
 }
@@ -91,11 +91,11 @@ export function requestCurrentDayDataPer100k(dataTable, country) {
   dataTableClone.innerHTML = `
   <ul>
     <li>Confirmed:<span class='numberOfconf'> ${((JSON.stringify(data.todayCases) / population) * 100000)
-    .toFixed(3)}</span></li>
+    .toFixed(3) && 'No Data'}</span></li>
     <li>Deaths: <span class='numberOf'> ${((JSON.stringify(data.todayDeaths) / population) * 100000)
-    .toFixed(3)}</span></li>
+    .toFixed(3) && 'No Data'}</span></li>
     <li>Recovered: <span class='numberOfrec'> ${((JSON.stringify(data.todayRecovered) / population) * 100000)
-    .toFixed(3)}</span></li>
+    .toFixed(3) && 'No Data'}</span></li>
   </ul>
   `;
 }
@@ -113,13 +113,13 @@ export function requestCountryData(country, dataTable) {
       // eslint-disable-next-line no-param-reassign
       dataTable.innerHTML = `
       <ul>
-        <li>Today Cases:  <span class='numberOfconf'> ${JSON.stringify(searchingCountryData.todayCases)}</li>
+        <li>Today Cases:  <span class='numberOfconf'> ${JSON.stringify(searchingCountryData.todayCases) && 'No Data'}</li>
         <li>Total Cases:  <span class='numberOfconf'> ${JSON.stringify(searchingCountryData.cases)}</span></li>
-        <li>Today Deaths:  <span class='numberOf'> ${JSON.stringify(searchingCountryData.todayDeaths)}</span></li>
+        <li>Today Deaths:  <span class='numberOf'> ${JSON.stringify(searchingCountryData.todayDeaths) && 'No Data'}</span></li>
         <li>Total Deaths:  <span class='numberOf'> ${JSON.stringify(searchingCountryData.deaths)}</span></li>
-        <li>Today Recovered:  <span class='numberOfrec'> ${JSON.stringify(searchingCountryData.todayRecovered)}</span></li>
+        <li>Today Recovered:  <span class='numberOfrec'> ${JSON.stringify(searchingCountryData.todayRecovered) && 'No Data'}</span></li>
         <li>Total Recovered: <span class='numberOfrec'>${JSON.stringify(searchingCountryData.recovered)}</span></li>
-        <li>Date: ${JSON.stringify(new Date(searchingCountryData.Date).toLocaleDateString())}</span></li>
+        <li>Population: ${JSON.stringify(searchingCountryData.population)}</span></li>
       </ul>
       `;
     })
