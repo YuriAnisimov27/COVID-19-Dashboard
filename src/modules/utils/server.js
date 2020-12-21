@@ -1,6 +1,18 @@
 import { storage } from './helpers';
 import countries from '../data/countries.data';
 
+export function requestData() {
+  fetch('https://api.covid19api.com/summary')
+    .then((data) => data.json())
+    .then((data) => {
+      storage('Global', data);
+      storage('Global data', data.Global);
+      storage('Current Day', data.Date);
+      storage('Countries data', data.Countries);
+    })
+    .catch((err) => console.error(err));
+}
+
 export function reqGlobalData(dataTable) {
   fetch('https://api.covid19api.com/summary')
     .then((data) => data.json())

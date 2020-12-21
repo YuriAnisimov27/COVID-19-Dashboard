@@ -2,8 +2,11 @@ import { getCountrySchedule, getGlobalSchedule } from '../utils/server';
 import { storage } from '../utils/helpers';
 
 export default class ScheduleDiseases {
+  constructor() {
+    this.chart = null;
+  }
+
   drowSchedule(dates, cases, status) {
-    this.bar = 'Hello World';
     let bcgColor;
     let borderClr;
     if (status === 'recovered') {
@@ -18,7 +21,8 @@ export default class ScheduleDiseases {
     }
 
     const ctx = document.getElementById('myChart').getContext('2d');
-    const chart = new Chart(ctx, {
+    // eslint-disable-next-line no-undef
+    this.chart = new Chart(ctx, {
       type: 'line',
       data: {
         labels: dates,
@@ -30,12 +34,23 @@ export default class ScheduleDiseases {
           borderWidth: 0.2,
         }],
       },
-      options: {},
+      options: {
+        tooltips: {
+          mode: 'index',
+          intersect: false,
+        },
+      },
     });
   }
 
+  updateChart(dates, cases, status) {
+    this.chart.data.datasets[0].label = status;
+    this.chart.data.datasets[0].data = cases;
+    this.chart.data.labels = dates;
+    this.chart.update();
+  }
+
   async createSchedule(country = null, status = 'confirmed') {
-    this.bar = 'Hello World';
     const currentDay = storage('Current Day');
 
     if (country) {
@@ -43,12 +58,13 @@ export default class ScheduleDiseases {
       const titleSchedule = document.querySelector('.schedule-btn__info');
       title.textContent = country;
       titleSchedule.textContent = country;
-      console.log('country await', country);
       const { dates, cases } = await getCountrySchedule(country, status, '2020-03-01T00:00:00Z', currentDay);
       this.drowSchedule(dates, cases, status);
+      // this.updateChart(dates, cases, status);
     } else {
       const { dates, cases } = await getGlobalSchedule(status);
       this.drowSchedule(dates, cases, status);
+      // this.updateChart(dates, cases, status);
     }
   }
 

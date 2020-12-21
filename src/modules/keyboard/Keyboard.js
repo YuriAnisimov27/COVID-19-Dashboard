@@ -1,36 +1,45 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable import/extensions */
-import * as storage from './storage.js';
-import create from './utils/create.js';
-import language from './layouts/index.js'; // { en, ru }
-import Key from './Key.js';
+import * as storage from './storage';
+import create from './utils/create';
+import language from './layouts/index';
+import Key from './Key';
+import soundBoom from '../../sounds/boom.wav';
+import soundClap from '../../sounds/clap.wav';
+import soundTom from '../../sounds/tom.wav';
+import soundSnare from '../../sounds/snare.wav';
+import soundTink from '../../sounds/tink.wav';
+import { controlQuickSearch } from '../components/CountryList.component';
 
-const main = create('main', '',
-  [
-    create('p', 'hint', 'Use <kbd>Ctrl</kbd> + <kbd>Alt</kbd> to switch language.'),
-    create('p', 'hint', 'Click on Textarea To Show Keyboard'),
-  ]);
-
+const main = create('main', '');
 export default class Keyboard {
   constructor(rowsOrder) {
     this.rowsOrder = rowsOrder;
     this.keysPressed = {};
     this.isCaps = false;
+    this.preHandleEvent = this.preHandleEvent.bind(this);
+    this.handleEvent = this.handleEvent.bind(this);
+    this.resetButtonState = this.resetButtonState.bind(this);
+    this.resetPressedButtons = this.resetPressedButtons.bind(this);
+    this.switchLanguage = this.switchLanguage.bind(this);
+  }
+
+  changeOutputValue(newValue) {
+    this.output.value = newValue;
+    controlQuickSearch();
   }
 
   init(langCode) {
     this.keyBase = language[langCode];
-    this.output = create('textarea', 'output', null, main,
-      ['placeholder', 'Start type something...'],
-      ['rows', 5],
-      ['cols', 50],
-      ['spellcheck', false],
-      ['autocorrect', 'off']);
-      this.output.addEventListener('click', () => {
-        const keyboard = document.querySelector('.keyboard');
-        keyboard.style.opacity = 1;
-        keyboard.style.transition = 'opacity .5s ease-out';
-      });
+    this.output = document.querySelector('#country-list');
+
+    const kbInitBtn = document.querySelector('label');
+    // kbInitBtn.addEventListener('click', () => console.log('clicked'));
+
+    kbInitBtn.addEventListener('click', () => {
+      const keyboard = document.querySelector('.keyboard');
+      keyboard.style.opacity = 1;
+      keyboard.style.transition = 'opacity .5s ease-out';
+      main.style.zIndex = 160000;
+    });
     this.container = create('div', 'keyboard', null, main, ['language', langCode]);
     document.body.prepend(main);
     this.buttonSound = false;
@@ -59,7 +68,7 @@ export default class Keyboard {
     this.container.onmouseup = this.preHandleEvent;
   }
 
-  preHandleEvent = (e) => {
+  preHandleEvent(e) {
     e.stopPropagation();
     const keyDiv = e.target.closest('.keyboard__key');
     if (!keyDiv) return;
@@ -68,52 +77,51 @@ export default class Keyboard {
     this.handleEvent({ code, type: e.type });
   }
 
-  handleEvent = (e) => {
+  handleEvent(e) {
     if (e.stopPropagation) e.stopPropagation();
-    
+
     if (this.buttonSound) {
-      if (e.code === "ShiftLeft" || e.code === "ShiftRight") {
+      if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
         const sound = document.createElement('audio');
-        sound.src = './assets/sounds/boom.wav';
+        sound.src = soundBoom;
         sound.play();
       } else if (e.code === 'CapsLock') {
         const sound = document.createElement('audio');
-        sound.src = './assets/sounds/clap.wav';
+        sound.src = soundClap;
         sound.play();
       } else if ((e.code === 'Backspace')) {
         const sound = document.createElement('audio');
-        sound.src = './assets/sounds/tom.wav';
+        sound.src = soundTom;
         sound.play();
       } else if (e.code === 'Enter') {
         const sound = document.createElement('audio');
-        sound.src = './assets/sounds/snare.wav';
+        sound.src = soundSnare;
+        sound.play();
+      } else if (storage.get('kbLang') === 'ru') {
+        const sound = document.createElement('audio');
+        sound.src = soundTink;
         sound.play();
       } else {
-        if (storage.get('kbLang') === "ru") {
-          const sound = document.createElement('audio');
-          sound.src = './assets/sounds/tink.wav';
-          sound.play();
-        } else {
-          const sound = document.createElement('audio');
-          sound.src = './assets/sounds/kick.wav';
-          sound.play();
-        }
+        const sound = document.createElement('audio');
+        sound.src = soundTink;
+        sound.play();
       }
     }
 
-    if (e.code === 'en/ru' && e.type === "mousedown") {
+    if (e.code === 'en/ru' && e.type === 'mousedown') {
       this.switchLanguage();
       return;
     }
 
-    if (e.code === "hide keyboard") {
+    if (e.code === 'hide keyboard') {
       const keyboard = document.querySelector('.keyboard');
       keyboard.style.opacity = 0;
       keyboard.style.transition = 'opacity .5s ease-in';
+      main.style.zIndex = -9999;
       return;
     }
 
-    if (e.code === "button sound" && e.type === "mousedown") {
+    if (e.code === 'button sound' && e.type === 'mousedown') {
       this.buttonSound = !this.buttonSound;
       const keyObj = this.keyButtons.find((key) => key.code === e.code);
       keyObj.div.classList.toggle('active');
@@ -126,34 +134,36 @@ export default class Keyboard {
       return;
     }
 
-    if (e.code === "voice input" && e.type === "mousedown") {
+    if (e.code === 'voice input' && e.type === 'mousedown') {
       this.voiceRecorder = !this.voiceRecorder;
 
       const keyObj = this.keyButtons.find((key) => key.code === e.code);
       keyObj.div.classList.toggle('active');
       window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      // eslint-disable-next-line no-undef
       const rec = new SpeechRecognition();
 
       if (this.voiceRecorder) {
         setInterval(() => {
-          if (!this.voiceRecorder) {           
+          if (!this.voiceRecorder) {
             rec.abort();
           }
-        }, 500)
+        }, 500);
       }
 
       rec.interimResults = false;
-      rec.lang = (storage.get('kbLang') === "ru") ? 'ru-RU' : 'en-US';
+      rec.lang = (storage.get('kbLang') === 'ru') ? 'ru-RU' : 'en-US';
 
-      const voiceHandler = (e) => {
+      const voiceHandler = () => {
         const text = Array.from(e.results)
-          .map(result => result[0])
-          .map(result => result.transcript)
+          .map((result) => result[0])
+          .map((result) => result.transcript)
           .join('');
-        this.output.value = this.output.value + text;
+        this.output.value += text;
+        controlQuickSearch();
       };
 
-      const endHandler = (e) => {
+      const endHandler = () => {
         if (this.voiceRecorder) {
           rec.start();
         } else {
@@ -164,7 +174,7 @@ export default class Keyboard {
       };
 
       rec.addEventListener('result', voiceHandler);
-      
+
       if (!this.voiceRecorder) {
         rec.removeEventListener('end', endHandler);
         rec.removeEventListener('result', voiceHandler);
@@ -225,7 +235,7 @@ export default class Keyboard {
     }
   }
 
-  resetButtonState = ({ target: { dataset: { code } } }) => {
+  resetButtonState({ target: { dataset: { code } } }) {
     if (code.match('Shift')) {
       this.shiftKey = false;
       this.switchUpperCase(false);
@@ -237,7 +247,7 @@ export default class Keyboard {
     this.output.focus();
   }
 
-  resetPressedButtons = (targetCode) => {
+  resetPressedButtons(targetCode) {
     if (!this.keysPressed[targetCode]) return;
     if (!this.isCaps) this.keysPressed[targetCode].div.classList.remove('active');
     this.keysPressed[targetCode].div.removeEventListener('mouseleave', this.resetButtonState);
@@ -247,6 +257,7 @@ export default class Keyboard {
   switchUpperCase(isTrue) {
     if (isTrue) {
       this.keyButtons.forEach((button) => {
+        const buttonCopy = button;
         if (button.sub) {
           if (this.shiftKey) {
             button.sub.classList.add('sub-active');
@@ -254,35 +265,36 @@ export default class Keyboard {
           }
         }
         if (!button.isFnKey && this.isCaps && !this.shiftKey && !button.sub.innerHTML) {
-          button.letter.innerHTML = button.shift;
+          buttonCopy.letter.innerHTML = button.shift;
         } else if (!button.isFnKey && this.isCaps && this.shiftKey) {
-          button.letter.innerHTML = button.small;
+          buttonCopy.letter.innerHTML = button.small;
         } else if (!button.isFnKey && !button.sub.innerHTML) {
-          button.letter.innerHTML = button.shift;
+          buttonCopy.letter.innerHTML = button.shift;
         }
       });
     } else {
       this.keyButtons.forEach((button) => {
+        const buttonCopy = button;
         if (button.sub.innerHTML && !button.isFnKey) {
           button.sub.classList.remove('sub-active');
           button.letter.classList.remove('sub-inactive');
           if (!this.isCaps) {
-            button.letter.innerHTML = button.small;
+            buttonCopy.letter.innerHTML = button.small;
           } else if (!this.isCaps) {
-            button.letter.innerHTML = button.shift;
+            buttonCopy.letter.innerHTML = button.shift;
           }
         } else if (!button.isFnKey) {
           if (this.isCaps) {
-            button.letter.innerHTML = button.shift;
+            buttonCopy.letter.innerHTML = button.shift;
           } else {
-            button.letter.innerHTML = button.small;
+            buttonCopy.letter.innerHTML = button.small;
           }
         }
       });
     }
   }
 
-  switchLanguage = () => {
+  switchLanguage() {
     const langAbbr = Object.keys(language);
     let langIdx = langAbbr.indexOf(this.container.dataset.language);
     this.keyBase = langIdx + 1 < langAbbr.length ? language[langAbbr[langIdx += 1]]
@@ -292,16 +304,17 @@ export default class Keyboard {
     storage.set('kbLang', langAbbr[langIdx]);
 
     this.keyButtons.forEach((button) => {
+      const buttonCopy = button;
       const keyObj = this.keyBase.find((key) => key.code === button.code);
       if (!keyObj) return;
-      button.shift = keyObj.shift;
-      button.small = keyObj.small;
+      buttonCopy.shift = keyObj.shift;
+      buttonCopy.small = keyObj.small;
       if (keyObj.shift && keyObj.shift.match(/[^a-zA-Zа-яА-ЯёЁ0-9]/g)) {
-        button.sub.innerHTML = keyObj.shift;
+        buttonCopy.sub.innerHTML = keyObj.shift;
       } else {
-        button.sub.innerHTML = '';
+        buttonCopy.sub.innerHTML = '';
       }
-      button.letter.innerHTML = keyObj.small;
+      buttonCopy.letter.innerHTML = keyObj.small;
     });
     if (this.isCaps) this.switchUpperCase(true);
   }
@@ -312,7 +325,7 @@ export default class Keyboard {
     const right = this.output.value.slice(cursorPos);
     const textHandlers = {
       Tab: () => {
-        this.output.value = `${left}\t${right}`;
+        this.changeOutputValue(`${left}\t${right}`);
         cursorPos += 1;
       },
       ArrowLeft: () => {
@@ -322,26 +335,28 @@ export default class Keyboard {
         cursorPos += 1;
       },
       ArrowUp: () => {
+        // this.changeOutputValue();
         const positionFromLeft = this.output.value.slice(0, cursorPos).match(/(\n).*$(?!\1)/g) || [[1]];
         cursorPos -= positionFromLeft[0].length;
       },
       ArrowDown: () => {
+        // this.changeOutputValue();
         const positionFromLeft = this.output.value.slice(cursorPos).match(/^.*(\n).*(?!\1)/) || [[1]];
         cursorPos += positionFromLeft[0].length;
       },
       Enter: () => {
-        this.output.value = `${left}\n${right}`;
+        this.changeOutputValue(`${left}\n${right}`);
         cursorPos += 1;
       },
       Delete: () => {
-        this.output.value = `${left}${right.slice(1)}`;
+        this.changeOutputValue(`${left}${right.slice(1)}`);
       },
       Backspace: () => {
-        this.output.value = `${left.slice(0, -1)}${right}`;
+        this.changeOutputValue(`${left.slice(0, -1)}${right}`);
         cursorPos -= 1;
       },
       Space: () => {
-        this.output.value = `${left} ${right}`;
+        this.changeOutputValue(`${left} ${right}`);
         cursorPos += 1;
       },
     };
@@ -349,7 +364,9 @@ export default class Keyboard {
     else if (!keyObj.isFnKey) {
       cursorPos += 1;
       this.output.value = `${left}${symbol || ''}${right}`;
+      controlQuickSearch();
     }
     this.output.setSelectionRange(cursorPos, cursorPos);
+    controlQuickSearch();
   }
 }
