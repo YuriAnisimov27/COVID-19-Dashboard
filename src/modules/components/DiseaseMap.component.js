@@ -19,6 +19,19 @@ const gradesNewRecoveriesPer100K = [0, 0.001, 0.01, 0.1, 0.5];
 const population = 1000000;
 let counter = 0;
 let dataClone;
+const map = L.map('map').setView([51.505, -0.09], 2);
+
+export function setViewFromList(countryName) {
+  let countryLAT;
+  let countryLON;
+  dataClone.forEach((el) => {
+    if (countryName === el.country) {
+      countryLAT = el.countryInfo.lat;
+      countryLON = el.countryInfo.long;
+    }
+  });
+  map.setView([countryLAT, countryLON], 3);
+}
 
 export default function mapBuilder(data) {
   dataClone = data;
@@ -35,7 +48,6 @@ export default function mapBuilder(data) {
   let geojson;
   const info = L.control();
   const legend = L.control({ position: 'bottomleft' });
-  const map = L.map('map').setView([51.505, -0.09], 2);
   const southWest = L.latLng(-90, -180);
   const northEast = L.latLng(90, 180);
   const bounds = L.latLngBounds(southWest, northEast);
