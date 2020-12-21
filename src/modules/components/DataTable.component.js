@@ -21,7 +21,7 @@ export default class DataTable {
   changeData() {
     this.bar = 'Hello world';
     let counter = 0;
-    const informationList = ['total number of cases', 'number of cases in the last day ', 'the total number of cases of the disease per 100 thousand population', 'the number of cases of the disease in the last day per 100 thousand population'];
+    const informationList = ['Total number of cases', 'New cases ', 'Total number of cases per 100k people', 'Number of new cases per 100k people'];
     const leftArrow = document.querySelector('.table-btn__left');
     const rightArrow = document.querySelector('.table-btn__right');
     const statusSpan = document.querySelector('.table-btn__info');

@@ -39,3 +39,75 @@
 .set {
   background-color: brown;
 }
+
+.list-inputBlock {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.list-input {
+  background: rgba(0, 0, 0, .26);
+  color: #84848b;
+  border-style: none;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  width: 7rem;
+}
+
+.form-example {
+  display: flex;
+  align-items: flex-end;
+}
+
+.virtKeyboard {
+  background: #141422;
+  border: none;
+}
+
+.virtKeyboard :hover {
+  cursor: pointer;
+}
+
+.keyboardIcon {
+  color: white;
+}
+
+.searchbtn {
+  background: #141422;
+  border: none;
+}
+
+.searchbtn :hover {
+  cursor: pointer;
+}
+
+.loopIcon {
+  color: white;
+}
+
+.sortbtn {
+  color: white;
+  background-color: #e65425;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.sortbtn:hover {
+  border-radius: 8px;
+}
+.sortbtn:focus {
+  background-color: white;
+  color:#e65425;
+  outline: none;
+}
+.listSpanCases {
+  color: #2c4be5;
+}
+.listSpanDeaths {
+  color: red;
+}
+.listSpanRecovered {
+  color: #00b300;
+}
