@@ -3,6 +3,7 @@ import { storage } from './modules/utils/helpers';
 import DataTable from './modules/components/DataTable.component';
 import CountryList from './modules/components/CountryList.component';
 import ScheduleDiseases from './modules/components/ScheduleDiseases.component';
+import Header from './modules/components/Header.component';
 import './css/keyboard.css';
 import './css/list.css';
 import './css/map.css';
@@ -25,6 +26,7 @@ window.addEventListener('load', () => {
     const lang = get('kbLang', '"en"');
     new Keyboard(rowsOrder).init(lang).generateLayout();
 
+    new Header().createHeader();
     new DataTable().createTable();
     new CountryList().createList();
     new CountryList().sortList();

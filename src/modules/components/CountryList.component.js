@@ -18,25 +18,22 @@ export function controlQuickSearch() {
       const searchingCountryData = arr
         .filter((el) => el.country.toLowerCase().startsWith(inputList.value));
       searchingCountryData.forEach((country) => {
-        const countryFlag = countries.filter((el) => el.name === country.country)[0];
-        if (countryFlag) {
-          const countyInner = create('div', 'country-inner');
-          const flagImg = create('img');
-          flagImg.src = countryFlag.flag;
+        const countyInner = create('div', 'country-inner');
+        const flagImg = create('img');
+        flagImg.src = country.countryInfo.flag || null;
 
-          const cntr = create('span');
-          cntr.textContent = country.country;
+        const cntr = create('span');
+        cntr.textContent = country.country;
 
-          countyInner.addEventListener('click', () => {
-            requestCountryData(countryFlag.name, dataTable);
-            new ScheduleDiseases().createSchedule(countryFlag.name);
-            setViewFromList(country.country);
-          });
+        countyInner.addEventListener('click', () => {
+          requestCountryData(country.country, dataTable);
+          new ScheduleDiseases().createSchedule(country.country);
+          setViewFromList(country.country);
+        });
 
-          countyInner.append(flagImg);
-          countyInner.append(cntr);
-          dataListSearch.append(countyInner);
-        }
+        countyInner.append(flagImg);
+        countyInner.append(cntr);
+        dataListSearch.append(countyInner);
 
         return undefined;
       });
@@ -54,29 +51,26 @@ export default class CountryList {
     const data = sortType || storage('Countries data');
 
     data.map((country) => {
-      const countryFlag = countries.filter((el) => el.name === country.country)[0];
-      if (countryFlag) {
-        const countyInner = create('div', 'country-inner');
-        const flagImg = create('img');
-        flagImg.src = countryFlag.flag;
+      const countyInner = create('div', 'country-inner');
+      const flagImg = create('img');
+      flagImg.src = country.countryInfo.flag;
 
-        const cntr = create('span');
-        cntr.textContent = country.country;
+      const cntr = create('span');
+      cntr.textContent = country.country;
 
-        const cases = create('p');
-        cases.innerHTML = `Cases:<span class='listSpanCases'> ${country.cases}</span> <br> Recovered:<span class='listSpanRecovered'> ${country.recovered}</span> <br> Deaths: <span class='listSpanDeaths'>${country.deaths}</span>`;
+      const cases = create('p');
+      cases.innerHTML = `Cases:<span class='listSpanCases'> ${country.cases}</span> <br> Recovered:<span class='listSpanRecovered'> ${country.recovered}</span> <br> Deaths: <span class='listSpanDeaths'>${country.deaths}</span>`;
 
-        countyInner.addEventListener('click', () => {
-          requestCountryData(countryFlag.name, dataTable);
-          new ScheduleDiseases().createSchedule(countryFlag.name);
-          setViewFromList(country.country);
-        });
+      countyInner.addEventListener('click', () => {
+        requestCountryData(country.country, dataTable);
+        new ScheduleDiseases().createSchedule(country.country);
+        setViewFromList(country.country);
+      });
 
-        countyInner.append(flagImg);
-        countyInner.append(cntr);
-        countyInner.append(cases);
-        dataList.append(countyInner);
-      }
+      countyInner.append(flagImg);
+      countyInner.append(cntr);
+      countyInner.append(cases);
+      dataList.append(countyInner);
 
       return undefined;
     });
