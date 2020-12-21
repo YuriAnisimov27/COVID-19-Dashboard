@@ -3,6 +3,45 @@ import create, { storage, removeElement } from '../utils/helpers';
 import { requestCountryData } from '../utils/server';
 import countries from '../data/countries.data';
 
+export function controlQuickSearch() {
+  const dataTable = document.querySelector('.dataTable');
+  const inputList = document.querySelector('#country-list');
+  console.log('list');
+  removeElement('.dataList');
+  const dataListSearch = create('div', 'dataList');
+  const list = document.querySelector('.list');
+  list.append(dataListSearch);
+
+  fetch('https://api.covid19api.com/summary')
+    .then((data) => data.json())
+    .then((arr) => {
+      const searchingCountryData = arr.Countries
+        .filter((el) => el.Country.toLowerCase().startsWith(inputList.value));
+      searchingCountryData.forEach((country) => {
+        const countryFlag = countries.filter((el) => el.name === country.Country)[0];
+        if (countryFlag) {
+          const countyInner = create('div', 'country-inner');
+          const flagImg = create('img');
+          flagImg.src = countryFlag.flag;
+
+          const cntr = create('span');
+          cntr.textContent = country.Country;
+
+          countyInner.addEventListener('click', () => {
+            requestCountryData(countryFlag.name, dataTable);
+            new ScheduleDiseases().createSchedule(countryFlag.name);
+          });
+
+          countyInner.append(flagImg);
+          countyInner.append(cntr);
+          dataListSearch.append(countyInner);
+        }
+
+        return undefined;
+      });
+    });
+}
+
 export default class CountryList {
   allCountries(sortType) {
     this.bar = 'Hello world';
@@ -11,7 +50,8 @@ export default class CountryList {
     removeElement('.dataList');
     const dataList = create('div', 'dataList');
 
-    const data = sortType || storage('Global').Countries;
+    // const data = sortType || storage('Global').Countries;
+    const data = sortType || storage('Countries data');
 
     data.map((country) => {
       const countryFlag = countries.filter((el) => el.name === country.Country)[0];
@@ -66,42 +106,7 @@ export default class CountryList {
       }
     });
 
-    input.addEventListener('input', (event) => {
-      removeElement('.dataList');
-      const dataListSearch = create('div', 'dataList');
-      const list = document.querySelector('.list');
-      list.append(dataListSearch);
-
-      fetch('https://api.covid19api.com/summary')
-        .then((data) => data.json())
-        .then((arr) => {
-          const searchingCountryData = arr.Countries
-            .filter((el) => el.Country.toLowerCase().startsWith(event.target.value));
-          searchingCountryData.forEach((country) => {
-            const countryFlag = countries.filter((el) => el.name === country.Country)[0];
-            if (countryFlag) {
-              const countyInner = create('div', 'country-inner');
-              const flagImg = create('img');
-              flagImg.src = countryFlag.flag;
-
-              const cntr = create('span');
-              cntr.textContent = country.Country;
-
-              countyInner.addEventListener('click', () => {
-                requestCountryData(countryFlag.name, dataTable);
-                new ScheduleDiseases().createSchedule(countryFlag.name);
-              });
-
-              countyInner.append(flagImg);
-              countyInner.append(cntr);
-              // dataList.append(countyInner);
-              dataListSearch.append(countyInner);
-            }
-
-            return undefined;
-          });
-        });
-    });
+    input.addEventListener('input', controlQuickSearch);
   }
 
   sortList() {

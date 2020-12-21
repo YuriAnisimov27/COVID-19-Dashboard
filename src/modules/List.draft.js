@@ -1,4 +1,4 @@
-import create from '../utils/helpers';
+// import create from '../utils/helpers';
 
 const arrowLeftBlock = create('div', 'list-listHeader__left list__arrows');
 const arrowRightBlock = create('div', 'list-listHeader__right list__arrows');

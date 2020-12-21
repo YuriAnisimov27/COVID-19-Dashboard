@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 import { countriesGeo } from '../geodata/countries.geo';
 import create from '../utils/helpers';
+import { requestCountryData } from '../utils/server';
+import ScheduleDiseases from './ScheduleDiseases.component';
 
 const gradesCases = [0, 5000, 50000, 500000, 1000000];
 const gradesDeaths = [0, 50, 500, 50000, 500000];
@@ -220,7 +222,10 @@ export default function mapBuilder(data) {
   }
   function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
-    console.log(e.target.feature.properties.name);
+    const currCountry = e.target.feature.properties.name;
+    const dataTable = document.querySelector('.dataTable');
+    requestCountryData(currCountry, dataTable);
+    new ScheduleDiseases().createSchedule(currCountry);
     // call builder function of table or schedule.
     // e.target.feature.properties.name - name of chosen country
   }
@@ -557,7 +562,6 @@ export default function mapBuilder(data) {
   });
   filterArrowRight.addEventListener('click', () => {
     counter = Math.abs(counter + 1) % 12;
-    console.log(counter);
     mapBlock.removeChild(filterMap);
     map.remove();
     mapBuilder(dataClone);

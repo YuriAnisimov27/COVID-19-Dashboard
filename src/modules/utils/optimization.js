@@ -14,3 +14,4 @@ export default function debounce(fn, wait) {
     timeout = setTimeout(later, wait);
   };
 }
+
