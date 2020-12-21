@@ -2,6 +2,7 @@ import ScheduleDiseases from './ScheduleDiseases.component';
 import create, { storage, removeElement } from '../utils/helpers';
 import { requestCountryData } from '../utils/server';
 import countries from '../data/countries.data';
+import { setViewFromList } from './DiseaseMap.component';
 
 export function controlQuickSearch() {
   const dataTable = document.querySelector('.dataTable');
@@ -29,6 +30,7 @@ export function controlQuickSearch() {
           countyInner.addEventListener('click', () => {
             requestCountryData(countryFlag.name, dataTable);
             new ScheduleDiseases().createSchedule(countryFlag.name);
+            setViewFromList(country.country);
           });
 
           countyInner.append(flagImg);
@@ -49,7 +51,6 @@ export default class CountryList {
     removeElement('.dataList');
     const dataList = create('div', 'dataList');
 
-    // const data = sortType || storage('Global').Countries;
     const data = sortType || storage('Countries data');
 
     data.map((country) => {
@@ -68,6 +69,7 @@ export default class CountryList {
         countyInner.addEventListener('click', () => {
           requestCountryData(countryFlag.name, dataTable);
           new ScheduleDiseases().createSchedule(countryFlag.name);
+          setViewFromList(country.country);
         });
 
         countyInner.append(flagImg);
