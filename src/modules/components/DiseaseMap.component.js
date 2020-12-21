@@ -57,7 +57,7 @@ export default function mapBuilder(data) {
   function searchData(currentCountryTofill) {
     let result = 0;
     jsonWithStatistic.forEach((el) => {
-      if (el.Country === currentCountryTofill) {
+      if (el.country === currentCountryTofill) {
         result = el;
       }
     });
@@ -66,7 +66,7 @@ export default function mapBuilder(data) {
   function getFillColor(currentCountryTofill) {
     let comp;
     if (counter === 0) {
-      comp = searchData(currentCountryTofill).TotalConfirmed;
+      comp = searchData(currentCountryTofill).cases;
       // eslint-disable-next-line no-nested-ternary
       return comp === gradesCases[0] ? '#b89c39'
         // eslint-disable-next-line no-nested-ternary
@@ -78,7 +78,7 @@ export default function mapBuilder(data) {
               : comp <= gradesCases[4] ? '#053a78' : '#002045';
     }
     if (counter === 1) {
-      comp = searchData(currentCountryTofill).TotalDeaths;
+      comp = searchData(currentCountryTofill).deaths;
       // eslint-disable-next-line no-nested-ternary
       return comp === gradesDeaths[0] ? '#ffd9b3'
         // eslint-disable-next-line no-nested-ternary
@@ -90,7 +90,7 @@ export default function mapBuilder(data) {
               : comp <= gradesDeaths[4] ? '#cc6600' : '#994d00';
     }
     if (counter === 2) {
-      comp = searchData(currentCountryTofill).TotalRecovered;
+      comp = searchData(currentCountryTofill).recovered;
       // eslint-disable-next-line no-nested-ternary
       return comp === gradesRecoveries[0] ? '#ccffcc'
         // eslint-disable-next-line no-nested-ternary
@@ -102,7 +102,7 @@ export default function mapBuilder(data) {
               : comp <= gradesRecoveries[4] ? '#008000' : '#004d00';
     }
     if (counter === 3) {
-      comp = (searchData(currentCountryTofill).TotalConfirmed / population);
+      comp = (searchData(currentCountryTofill).cases / population);
       // eslint-disable-next-line no-nested-ternary
       return comp === gradesCasesPer100K[0] ? '#b89c39'
         // eslint-disable-next-line no-nested-ternary
@@ -114,7 +114,7 @@ export default function mapBuilder(data) {
               : comp <= gradesCasesPer100K[4] ? '#053a78' : '#002045';
     }
     if (counter === 4) {
-      comp = (searchData(currentCountryTofill).TotalDeaths / population);
+      comp = (searchData(currentCountryTofill).deaths / population);
       // eslint-disable-next-line no-nested-ternary
       return comp === gradesDeathsPer100K[0] ? '#ffd9b3'
         // eslint-disable-next-line no-nested-ternary
@@ -126,7 +126,7 @@ export default function mapBuilder(data) {
               : comp <= gradesDeathsPer100K[4] ? '#cc6600' : '#994d00';
     }
     if (counter === 5) {
-      comp = (searchData(currentCountryTofill).TotalRecovered / population);
+      comp = (searchData(currentCountryTofill).recovered / population);
       // eslint-disable-next-line no-nested-ternary
       return comp === gradesRecoveriesPer100K[0] ? '#ccffcc'
         // eslint-disable-next-line no-nested-ternary
@@ -138,7 +138,7 @@ export default function mapBuilder(data) {
               : comp <= gradesRecoveriesPer100K[4] ? '#008000' : '#004d00';
     }
     if (counter === 6) {
-      comp = (searchData(currentCountryTofill).NewConfirmed);
+      comp = (searchData(currentCountryTofill).todayCases);
       // eslint-disable-next-line no-nested-ternary
       return comp === gradesNewCases[0] ? '#b89c39'
         // eslint-disable-next-line no-nested-ternary
@@ -150,7 +150,7 @@ export default function mapBuilder(data) {
               : comp <= gradesNewCases[4] ? '#053a78' : '#002045';
     }
     if (counter === 7) {
-      comp = (searchData(currentCountryTofill).NewDeaths);
+      comp = (searchData(currentCountryTofill).todayDeaths);
       // eslint-disable-next-line no-nested-ternary
       return comp === gradesNewDeaths[0] ? '#ffd9b3'
         // eslint-disable-next-line no-nested-ternary
@@ -162,7 +162,7 @@ export default function mapBuilder(data) {
               : comp <= gradesNewDeaths[4] ? '#cc6600' : '#994d00';
     }
     if (counter === 8) {
-      comp = (searchData(currentCountryTofill).NewRecovered);
+      comp = (searchData(currentCountryTofill).todayRecovered);
       // eslint-disable-next-line no-nested-ternary
       return comp === gradesNewRecoveries[0] ? '#ccffcc'
         // eslint-disable-next-line no-nested-ternary
@@ -174,7 +174,7 @@ export default function mapBuilder(data) {
               : comp <= gradesNewRecoveries[4] ? '#008000' : '#004d00';
     }
     if (counter === 9) {
-      comp = ((searchData(currentCountryTofill).NewConfirmed) / population);
+      comp = ((searchData(currentCountryTofill).todayCases) / population);
       // eslint-disable-next-line no-nested-ternary
       return comp === gradesNewCasesPer100K[0] ? '#b89c39'
         // eslint-disable-next-line no-nested-ternary
@@ -186,7 +186,7 @@ export default function mapBuilder(data) {
               : comp <= gradesNewCasesPer100K[4] ? '#053a78' : '#002045';
     }
     if (counter === 10) {
-      comp = ((searchData(currentCountryTofill).NewDeaths) / population);
+      comp = ((searchData(currentCountryTofill).todayDeaths) / population);
       // eslint-disable-next-line no-nested-ternary
       return comp === gradesNewDeathsPer100K[0] ? '#ffd9b3'
         // eslint-disable-next-line no-nested-ternary
@@ -198,7 +198,7 @@ export default function mapBuilder(data) {
               : comp <= gradesNewDeathsPer100K[4] ? '#cc6600' : '#994d00';
     }
     if (counter === 11) {
-      comp = ((searchData(currentCountryTofill).NewRecovered) / population);
+      comp = ((searchData(currentCountryTofill).todayRecovered) / population);
       // eslint-disable-next-line no-nested-ternary
       return comp === gradesNewRecoveriesPer100K[0] ? '#ccffcc'
         // eslint-disable-next-line no-nested-ternary
@@ -271,73 +271,73 @@ export default function mapBuilder(data) {
     if (counter === 0) {
       const current = countryToShowData && searchData(countryToShowData.name);
       this.div.innerHTML = `<h4> Total confirmed cases</h4>${current
-        ? `<b>${current.Country}</b><br />${current.TotalConfirmed} Cases`
+        ? `<b>${current.country}</b><br />${current.cases} Cases`
         : 'Select country'}`;
     }
     if (counter === 1) {
       const current = countryToShowData && searchData(countryToShowData.name);
       this.div.innerHTML = `<h4> Total confirmed deaths</h4>${current
-        ? `<b>${current.Country}</b><br />${current.TotalDeaths} Deaths`
+        ? `<b>${current.country}</b><br />${current.deaths} Deaths`
         : 'Select country'}`;
     }
     if (counter === 2) {
       const current = countryToShowData && searchData(countryToShowData.name);
       this.div.innerHTML = `<h4> Total recovered</h4>${current
-        ? `<b>${current.Country}</b><br />${current.TotalRecovered} recoveries`
+        ? `<b>${current.country}</b><br />${current.recovered} recoveries`
         : 'Select country'}`;
     }
     if (counter === 3) {
       const current = countryToShowData && searchData(countryToShowData.name);
       this.div.innerHTML = `<h4> Total confirmed cases per 100k </h4>${current
-        ? `<b>${current.Country}</b><br />${(current.TotalConfirmed) / 100000} Cases per 100k`
+        ? `<b>${current.country}</b><br />${(current.cases) / population} Cases per 100k`
         : 'Select country'}`;
     }
     if (counter === 4) {
       const current = countryToShowData && searchData(countryToShowData.name);
       this.div.innerHTML = `<h4> Total confirmed deaths per 100k </h4>${current
-        ? `<b>${current.Country}</b><br />${(current.TotalDeaths) / 100000} Deaths per 100k`
+        ? `<b>${current.country}</b><br />${(current.deaths) / population} Deaths per 100k`
         : 'Select country'}`;
     }
     if (counter === 5) {
       const current = countryToShowData && searchData(countryToShowData.name);
       this.div.innerHTML = `<h4> Total confirmed recoveries per 100k </h4>${current
-        ? `<b>${current.Country}</b><br />${(current.TotalRecovered) / 100000} Recoveries per 100k`
+        ? `<b>${current.country}</b><br />${(current.recovered) / population} Recoveries per 100k`
         : 'Select country'}`;
     }
     if (counter === 6) {
       const current = countryToShowData && searchData(countryToShowData.name);
       this.div.innerHTML = `<h4> New cases </h4>${current
-        ? `<b>${current.Country}</b><br />${(current.NewConfirmed)} New cases`
+        ? `<b>${current.country}</b><br />${(current.todayCases)} New cases`
         : 'Select country'}`;
     }
     if (counter === 7) {
       const current = countryToShowData && searchData(countryToShowData.name);
       this.div.innerHTML = `<h4> New deaths </h4>${current
-        ? `<b>${current.Country}</b><br />${(current.NewDeaths)} New deaths`
+        ? `<b>${current.country}</b><br />${(current.todayDeaths)} New deaths`
         : 'Select country'}`;
     }
     if (counter === 8) {
       const current = countryToShowData && searchData(countryToShowData.name);
       this.div.innerHTML = `<h4> New recoveries </h4>${current
-        ? `<b>${current.Country}</b><br />${(current.NewRecovered)} New recoveries`
+        ? `<b>${current.country}</b><br />${(current.todayRecovered)} New recoveries`
         : 'Select country'}`;
     }
     if (counter === 9) {
       const current = countryToShowData && searchData(countryToShowData.name);
       this.div.innerHTML = `<h4> New cases per 100 k </h4>${current
-        ? `<b>${current.Country}</b><br />${(current.NewConfirmed) / population} New recoveries per 100k`
+        ? `<b>${current.country}</b><br />${(current.todayCases) / population} New cases per 100k`
         : 'Select country'}`;
     }
     if (counter === 10) {
       const current = countryToShowData && searchData(countryToShowData.name);
       this.div.innerHTML = `<h4> New deathes per 100 k </h4>${current
-        ? `<b>${current.Country}</b><br />${(current.NewDeaths) / population} New recoveries per 100k`
+        ? `<b>${current.country}</b><br />${(current.todayDeaths) / population} New deaths per 100k`
         : 'Select country'}`;
     }
     if (counter === 11) {
       const current = countryToShowData && searchData(countryToShowData.name);
       this.div.innerHTML = `<h4> New recoveries per 100 k </h4>${current
-        ? `<b>${current.Country}</b><br />${(current.NewRecovered) / population} New recoveries per 100k`
+        ? `<b>${current.country}</b><br />${(current.todayRecovered) / population} New recoveries per 100k`
         : 'Select country'}`;
     }
   };
