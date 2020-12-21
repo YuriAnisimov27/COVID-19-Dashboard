@@ -24,9 +24,9 @@ export function reqGlobalData(dataTable) {
       // eslint-disable-next-line no-param-reassign
       dataTable.innerHTML = `
       <ul>
-        <li>Total Confirmed: ${JSON.stringify(data.Global.TotalConfirmed)}</li>
-        <li>Total Deaths: ${JSON.stringify(data.Global.TotalDeaths)}</li>
-        <li>Total Recovered: ${JSON.stringify(data.Global.TotalRecovered)}</li>
+        <li>Total Confirmed: <span class='numberOfconf'> ${JSON.stringify(data.Global.TotalConfirmed)}</span></li>
+        <li>Total Deaths: <span class='numberOf'> ${JSON.stringify(data.Global.TotalDeaths)}</span></li>
+        <li>Total Recovered: <span class='numberOfrec'> ${JSON.stringify(data.Global.TotalRecovered)}</span></li>
       </ul>
       `;
     })
@@ -41,9 +41,9 @@ export function requestTotalCountData(dataTable, country) {
   // ${country && countries.filter((el) => el.name === country)[0].population}
   dataTableClone.innerHTML = `
   <ul>
-    <li>Confirmed: ${JSON.stringify(data.TotalConfirmed)}</li>
-    <li>Deaths: ${JSON.stringify(data.TotalDeaths)}</li>
-    <li>Recovered: ${JSON.stringify(data.TotalRecovered)}</li>
+    <li>Confirmed: <span class='numberOfconf'> ${JSON.stringify(data.TotalConfirmed)}</span></li>
+    <li>Deaths: <span class='numberOf'> ${JSON.stringify(data.TotalDeaths)}</span></li>
+    <li>Recovered: <span class='numberOfrec'> ${JSON.stringify(data.TotalRecovered)}</span></li>
   </ul>
   `;
 }
@@ -55,9 +55,9 @@ export function requestCurrentDayData(dataTable, country) {
   const dataTableClone = dataTable;
   dataTableClone.innerHTML = `
   <ul>
-    <li>Last Day Confirmed: ${JSON.stringify(data.NewConfirmed)}</li>
-    <li>Last Day Deaths: ${JSON.stringify(data.NewDeaths)}</li>
-    <li>Last Day Recovered: ${JSON.stringify(data.NewRecovered)}</li>
+    <li>Last Day Confirmed: <span class='numberOfconf'> ${JSON.stringify(data.NewConfirmed)}</span></li>
+    <li>Last Day Deaths: <span class='numberOf'>${JSON.stringify(data.NewDeaths)}</span></li>
+    <li>Last Day Recovered: <span class='numberOfrec'>${JSON.stringify(data.NewRecovered)}</span></li>
   </ul>
   `;
 }
@@ -72,12 +72,12 @@ export function requestTotalCountDataPer100k(dataTable, country) {
   const dataTableClone = dataTable;
   dataTableClone.innerHTML = `
   <ul>
-    <li>Confirmed: ${((JSON.stringify(data.TotalConfirmed) / population) * 100000)
-    .toFixed(3)}</li>
-    <li>Deaths: ${((JSON.stringify(data.TotalDeaths) / population) * 100000)
-    .toFixed(3)}</li>
-    <li>Recovered: ${((JSON.stringify(data.TotalRecovered) / population) * 100000)
-    .toFixed(3)}</li>
+    <li>Confirmed: <span class='numberOfconf'> ${((JSON.stringify(data.TotalConfirmed) / population) * 100000)
+    .toFixed(3)}</span></li>
+    <li>Deaths: <span class='numberOf'> ${((JSON.stringify(data.TotalDeaths) / population) * 100000)
+    .toFixed(3)}</span></li>
+    <li>Recovered: <span class='numberOfrec'> ${((JSON.stringify(data.TotalRecovered) / population) * 100000)
+    .toFixed(3)}</span></li>
   </ul>
   `;
 }
@@ -92,12 +92,12 @@ export function requestCurrentDayDataPer100k(dataTable, country) {
   const dataTableClone = dataTable;
   dataTableClone.innerHTML = `
   <ul>
-    <li>Confirmed: ${((JSON.stringify(data.NewConfirmed) / population) * 100000)
-    .toFixed(3)}</li>
-    <li>Deaths: ${((JSON.stringify(data.NewDeaths) / population) * 100000)
-    .toFixed(3)}</li>
-    <li>Recovered: ${((JSON.stringify(data.NewRecovered) / population) * 100000)
-    .toFixed(3)}</li>
+    <li>Confirmed:<span class='numberOfconf'> ${((JSON.stringify(data.NewConfirmed) / population) * 100000)
+    .toFixed(3)}</span></li>
+    <li>Deaths: <span class='numberOf'> ${((JSON.stringify(data.NewDeaths) / population) * 100000)
+    .toFixed(3)}</span></li>
+    <li>Recovered: <span class='numberOfrec'> ${((JSON.stringify(data.NewRecovered) / population) * 100000)
+    .toFixed(3)}</span></li>
   </ul>
   `;
 }
@@ -115,15 +115,14 @@ export function requestCountryData(country, dataTable) {
       // eslint-disable-next-line no-param-reassign
       dataTable.innerHTML = `
       <ul>
-        <li>Country Code: ${JSON.stringify(searchingCountryData.CountryCode)}</li>
-        <li>Slug: ${JSON.stringify(searchingCountryData.Slug)}</li>
-        <li>New Confirmed: ${JSON.stringify(searchingCountryData.NewConfirmed)}</li>
-        <li>Total Confirmed: ${JSON.stringify(searchingCountryData.TotalConfirmed)}</li>
-        <li>New Deaths: ${JSON.stringify(searchingCountryData.NewDeaths)}</li>
-        <li>Total Deaths: ${JSON.stringify(searchingCountryData.TotalDeaths)}</li>
-        <li>New Recovered: ${JSON.stringify(searchingCountryData.NewRecovered)}</li>
-        <li>Total Recovered: ${JSON.stringify(searchingCountryData.TotalRecovered)}</li>
-        <li>Date: ${JSON.stringify(new Date(searchingCountryData.Date).toLocaleDateString())}</li>
+        <li>Country Code:  <span class='countryCode'> ${JSON.stringify(searchingCountryData.CountryCode)}</span></li>
+        <li>New Confirmed:  <span class='numberOfconf'> ${JSON.stringify(searchingCountryData.NewConfirmed)}</li>
+        <li>Total Confirmed:  <span class='numberOfconf'> ${JSON.stringify(searchingCountryData.TotalConfirmed)}</span></li>
+        <li>New Deaths:  <span class='numberOf'> ${JSON.stringify(searchingCountryData.NewDeaths)}</span></li>
+        <li>Total Deaths:  <span class='numberOf'> ${JSON.stringify(searchingCountryData.TotalDeaths)}</span></li>
+        <li>New Recovered:  <span class='numberOfrec'> ${JSON.stringify(searchingCountryData.NewRecovered)}</span></li>
+        <li>Total Recovered: <span class='numberOfrec'>${JSON.stringify(searchingCountryData.TotalRecovered)}</span></li>
+        <li>Date: ${JSON.stringify(new Date(searchingCountryData.Date).toLocaleDateString())}</span></li>
       </ul>
       `;
     })

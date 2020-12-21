@@ -64,7 +64,7 @@ export default class CountryList {
         cntr.textContent = country.Country;
 
         const cases = create('p');
-        cases.innerHTML = `<span>Cases:</span> ${country.TotalConfirmed} <span>Recovered:</span> ${country.TotalRecovered} <span>Deaths:</span> ${country.TotalDeaths}`;
+        cases.innerHTML = `Cases:<span class='listSpanCases'> ${country.TotalConfirmed}</span> <br> Recovered:<span class='listSpanRecovered'> ${country.TotalRecovered}</span> <br> Deaths: <span class='listSpanDeaths'>${country.TotalDeaths}</span>`;
 
         countyInner.addEventListener('click', () => {
           requestCountryData(countryFlag.name, dataTable);
