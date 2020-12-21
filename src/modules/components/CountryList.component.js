@@ -6,26 +6,25 @@ import countries from '../data/countries.data';
 export function controlQuickSearch() {
   const dataTable = document.querySelector('.dataTable');
   const inputList = document.querySelector('#country-list');
-  console.log('list');
   removeElement('.dataList');
   const dataListSearch = create('div', 'dataList');
   const list = document.querySelector('.list');
   list.append(dataListSearch);
 
-  fetch('https://api.covid19api.com/summary')
+  fetch('https://disease.sh/v3/covid-19/countries')
     .then((data) => data.json())
     .then((arr) => {
-      const searchingCountryData = arr.Countries
-        .filter((el) => el.Country.toLowerCase().startsWith(inputList.value));
+      const searchingCountryData = arr
+        .filter((el) => el.country.toLowerCase().startsWith(inputList.value));
       searchingCountryData.forEach((country) => {
-        const countryFlag = countries.filter((el) => el.name === country.Country)[0];
+        const countryFlag = countries.filter((el) => el.name === country.country)[0];
         if (countryFlag) {
           const countyInner = create('div', 'country-inner');
           const flagImg = create('img');
           flagImg.src = countryFlag.flag;
 
           const cntr = create('span');
-          cntr.textContent = country.Country;
+          cntr.textContent = country.country;
 
           countyInner.addEventListener('click', () => {
             requestCountryData(countryFlag.name, dataTable);
@@ -54,17 +53,17 @@ export default class CountryList {
     const data = sortType || storage('Countries data');
 
     data.map((country) => {
-      const countryFlag = countries.filter((el) => el.name === country.Country)[0];
+      const countryFlag = countries.filter((el) => el.name === country.country)[0];
       if (countryFlag) {
         const countyInner = create('div', 'country-inner');
         const flagImg = create('img');
         flagImg.src = countryFlag.flag;
 
         const cntr = create('span');
-        cntr.textContent = country.Country;
+        cntr.textContent = country.country;
 
         const cases = create('p');
-        cases.innerHTML = `Cases:<span class='listSpanCases'> ${country.TotalConfirmed}</span> <br> Recovered:<span class='listSpanRecovered'> ${country.TotalRecovered}</span> <br> Deaths: <span class='listSpanDeaths'>${country.TotalDeaths}</span>`;
+        cases.innerHTML = `Cases:<span class='listSpanCases'> ${country.cases}</span> <br> Recovered:<span class='listSpanRecovered'> ${country.recovered}</span> <br> Deaths: <span class='listSpanDeaths'>${country.deaths}</span>`;
 
         countyInner.addEventListener('click', () => {
           requestCountryData(countryFlag.name, dataTable);
@@ -115,15 +114,15 @@ export default class CountryList {
     const recoveredBtn = document.querySelector('.sort-recovered');
     const deathsBtn = document.querySelector('.sort-deaths');
     const sortIcon = document.querySelector('.sort-icon');
-    let data = storage('Global').Countries;
+    let data = storage('Countries data');
     let position = true;
 
     casesBtn.addEventListener('click', () => {
       if (position) {
-        data = data.sort((a, b) => a.TotalConfirmed - b.TotalConfirmed);
+        data = data.sort((a, b) => a.cases - b.cases);
         sortIcon.textContent = 'keyboard_arrow_down';
       } else {
-        data = data.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
+        data = data.sort((a, b) => b.cases - a.cases);
         sortIcon.textContent = 'keyboard_arrow_up';
       }
       new CountryList().allCountries(data);
@@ -132,10 +131,10 @@ export default class CountryList {
 
     recoveredBtn.addEventListener('click', () => {
       if (position) {
-        data = data.sort((a, b) => a.TotalRecovered - b.TotalRecovered);
+        data = data.sort((a, b) => a.recovered - b.recovered);
         sortIcon.textContent = 'keyboard_arrow_down';
       } else {
-        data = data.sort((a, b) => b.TotalRecovered - a.TotalRecovered);
+        data = data.sort((a, b) => b.recovered - a.recovered);
         sortIcon.textContent = 'keyboard_arrow_up';
       }
       new CountryList().allCountries(data);
@@ -144,10 +143,10 @@ export default class CountryList {
 
     deathsBtn.addEventListener('click', () => {
       if (position) {
-        data = data.sort((a, b) => a.TotalDeaths - b.TotalDeaths);
+        data = data.sort((a, b) => a.deaths - b.deaths);
         sortIcon.textContent = 'keyboard_arrow_down';
       } else {
-        data = data.sort((a, b) => b.TotalDeaths - a.TotalDeaths);
+        data = data.sort((a, b) => b.deaths - a.deaths);
         sortIcon.textContent = 'keyboard_arrow_up';
       }
       new CountryList().allCountries(data);
