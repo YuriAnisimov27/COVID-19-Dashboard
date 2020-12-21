@@ -31,7 +31,7 @@ export default class Keyboard {
     this.keyBase = language[langCode];
     this.output = document.querySelector('#country-list');
 
-    const kbInitBtn = document.querySelector('label');
+    const kbInitBtn = document.querySelector('.keyboardIcon');
     // kbInitBtn.addEventListener('click', () => console.log('clicked'));
 
     kbInitBtn.addEventListener('click', () => {
