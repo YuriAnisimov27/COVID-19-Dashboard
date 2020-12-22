@@ -8,6 +8,7 @@ import './css/keyboard.css';
 import './css/list.css';
 import './css/map.css';
 import './css/style.css';
+import './css/headComp.css';
 import mapBuilder from './modules/components/DiseaseMap.component';
 import { get } from './modules/keyboard/storage';
 import Keyboard from './modules/keyboard/Keyboard';

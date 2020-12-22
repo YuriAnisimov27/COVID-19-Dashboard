@@ -17,11 +17,12 @@ const gradesNewCasesPer100K = [0, 0.01, 0.1, 0.5, 1];
 const gradesNewDeathsPer100K = [0, 0.001, 0.01, 0.1, 0.5];
 const gradesNewRecoveriesPer100K = [0, 0.001, 0.01, 0.1, 0.5];
 const population = 1000000;
+let mapForFunction;
 let counter = 0;
 let dataClone;
-const map = L.map('map').setView([51.505, -0.09], 2);
 
 export function setViewFromList(countryName) {
+  const map = mapForFunction;
   let countryLAT;
   let countryLON;
   dataClone.forEach((el) => {
@@ -34,6 +35,8 @@ export function setViewFromList(countryName) {
 }
 
 export default function mapBuilder(data) {
+  const map = L.map('map').setView([51.505, -0.09], 2);
+  mapForFunction = map;
   dataClone = data;
   const filterMap = create('nav', 'map-nav');
   const filterArrowLeft = create('div', 'map-nav__arrow material-icons');
@@ -575,6 +578,17 @@ export default function mapBuilder(data) {
   filterArrowRight.addEventListener('click', () => {
     counter = Math.abs(counter + 1) % 12;
     mapBlock.removeChild(filterMap);
+    map.remove();
+    mapBuilder(dataClone);
+  });
+  const mabBlock = document.querySelector('.mapFull');
+  const fullScreenBtn = create('span', 'fullscreenbtn material-icons screen__manager__icon');
+  fullScreenBtn.textContent = 'open_in_full';
+  mabBlock.appendChild(fullScreenBtn);
+  fullScreenBtn.addEventListener('click', () => {
+    mabBlock.classList.toggle('fullscreen');
+    document.querySelector('#map').classList.toggle('mapBodyFull');
+    document.body.classList.toggle('noScroll');
     map.remove();
     mapBuilder(dataClone);
   });

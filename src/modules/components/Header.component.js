@@ -8,12 +8,7 @@ export default class Header {
     const headerNavTitles = document.querySelectorAll('.header-nav__title');
     headerNavTitles.forEach((el, index) => {
       el.addEventListener('click', () => {
-        const messageWindow = create('div', '');
-        messageWindow.style.position = 'absolute';
-        messageWindow.style.background = 'white';
-        messageWindow.style.zIndex = 170000;
-        messageWindow.style.top = '20px';
-        messageWindow.style.left = '50px';
+        const messageWindow = create('div', 'header-component');
         messageWindow.innerHTML = healthInfoMessages[index];
         body.append(messageWindow);
         messageWindow.addEventListener('click', () => {

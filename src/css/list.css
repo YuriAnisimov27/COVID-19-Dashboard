@@ -87,6 +87,7 @@
 }
 
 .sortbtn {
+  padding: 5px;
   color: white;
   background-color: #e65425;
   border: none;
@@ -94,20 +95,25 @@
   cursor: pointer;
   transition: all 0.3s;
 }
+
 .sortbtn:hover {
   border-radius: 8px;
 }
+
 .sortbtn:focus {
   background-color: white;
-  color:#e65425;
+  color: #e65425;
   outline: none;
 }
+
 .listSpanCases {
   color: #2c4be5;
 }
+
 .listSpanDeaths {
   color: red;
 }
+
 .listSpanRecovered {
   color: #00b300;
 }
