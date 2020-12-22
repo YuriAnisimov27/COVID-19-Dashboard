@@ -1,3 +1,5 @@
+/* eslint-disable import/no-duplicates */
+import create from '../utils/helpers';
 import { getCountrySchedule, getGlobalSchedule } from '../utils/server';
 import { storage } from '../utils/helpers';
 
@@ -40,6 +42,14 @@ export default class ScheduleDiseases {
           intersect: false,
         },
       },
+    });
+    const schedule = document.querySelector('.schedule');
+    const fullScreenBtn = create('span', 'fullscreenbtn material-icons screen__manager__icon');
+    fullScreenBtn.textContent = 'open_in_full';
+    schedule.appendChild(fullScreenBtn);
+    fullScreenBtn.addEventListener('click', () => {
+      schedule.classList.toggle('fullscreen');
+      document.body.classList.toggle('noScroll');
     });
   }
 

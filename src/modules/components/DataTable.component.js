@@ -16,6 +16,13 @@ export default class DataTable {
     reqGlobalData(dataTable);
 
     this.changeData();
+    const fullScreenBtn = create('span', 'fullscreenbtn material-icons screen__manager__icon');
+    fullScreenBtn.textContent = 'open_in_full';
+    table.appendChild(fullScreenBtn);
+    fullScreenBtn.addEventListener('click', () => {
+      table.classList.toggle('fullscreen');
+      document.body.classList.toggle('noScroll');
+    });
   }
 
   changeData() {

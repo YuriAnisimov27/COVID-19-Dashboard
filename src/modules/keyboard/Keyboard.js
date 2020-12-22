@@ -36,9 +36,10 @@ export default class Keyboard {
 
     kbInitBtn.addEventListener('click', () => {
       const keyboard = document.querySelector('.keyboard');
+      keyboard.style.display = 'grid';
       keyboard.style.opacity = 1;
       keyboard.style.transition = 'opacity .5s ease-out';
-      main.style.zIndex = 160000;
+      main.style.zIndex = 1000002;
     });
     this.container = create('div', 'keyboard', null, main, ['language', langCode]);
     document.body.prepend(main);

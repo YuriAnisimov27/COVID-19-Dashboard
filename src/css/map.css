@@ -9,7 +9,7 @@
   cursor: pointer;
 }
 
-#mapBlock {
+.mapFull {
   position: relative;
   border-left: none;
 }

@@ -59,7 +59,7 @@ export default class CountryList {
       cntr.textContent = country.country;
 
       const cases = create('p');
-      cases.innerHTML = `Cases:<span class='listSpanCases'> ${country.cases}</span> <br> Recovered:<span class='listSpanRecovered'> ${country.recovered}</span> <br> Deaths: <span class='listSpanDeaths'>${country.deaths}</span>`;
+      cases.innerHTML = `Cases:<span class='listSpanCases'> ${country.cases}</span> Recovered:<span class='listSpanRecovered'> ${country.recovered}</span> Deaths: <span class='listSpanDeaths'>${country.deaths}</span>`;
 
       countyInner.addEventListener('click', () => {
         requestCountryData(country.country, dataTable);
@@ -76,12 +76,18 @@ export default class CountryList {
     });
 
     list.append(dataList);
+    const fullScreenBtn = create('span', 'fullscreenbtn material-icons screen__manager__icon');
+    fullScreenBtn.textContent = 'open_in_full';
+    list.appendChild(fullScreenBtn);
+    fullScreenBtn.addEventListener('click', () => {
+      list.classList.toggle('fullscreen');
+      document.body.classList.toggle('noScroll');
+    });
   }
 
   createList() {
     this.bar = 'Hello world';
     this.allCountries();
-
     const formData = document.querySelector('.form-list');
     const input = document.querySelector('#country-list');
     const dataTable = document.querySelector('.dataTable');
