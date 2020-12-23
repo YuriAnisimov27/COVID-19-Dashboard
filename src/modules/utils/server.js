@@ -144,7 +144,8 @@ export async function getGlobalSchedule(status) {
     }));
   dates.length = 100;
   dates.reverse();
-  cases.reverse().length = 100;
+  cases.length = 100;
+  cases.reverse();
 
   return { dates, cases };
 }

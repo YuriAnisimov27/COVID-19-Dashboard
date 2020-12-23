@@ -1,7 +1,6 @@
 /* eslint-disable import/no-duplicates */
 import create from '../utils/helpers';
 import { getCountrySchedule, getGlobalSchedule } from '../utils/server';
-import { storage } from '../utils/helpers';
 
 export default class ScheduleDiseases {
   constructor() {
@@ -61,7 +60,7 @@ export default class ScheduleDiseases {
   }
 
   async createSchedule(country = null, status = 'confirmed') {
-    const currentDay = storage('Current Day');
+    const currentDay = new Date().toDateString();
 
     if (country) {
       const title = document.querySelector('.schedule-btn__info');
