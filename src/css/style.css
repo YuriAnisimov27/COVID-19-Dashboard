@@ -106,6 +106,7 @@ li {
   font-size: 15px;
   max-width: 30%;
   width: 30%;
+  margin-right: 30px;
   transition: all 0.5s;
 }
 
