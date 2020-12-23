@@ -334,13 +334,13 @@ export default [{
   code: 'hide keyboard',
 },
 {
-  small: 'Voice Input',
+  small: 'Info',
   shift: null,
-  code: 'voice input',
+  code: 'info',
 },
 {
-  small: 'Button Sound',
+  small: 'Search',
   shift: null,
-  code: 'button sound',
+  code: 'search',
 },
 ];

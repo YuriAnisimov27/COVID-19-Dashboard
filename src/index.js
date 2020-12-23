@@ -36,5 +36,8 @@ window.addEventListener('load', () => {
 
     const mapData = storage('Countries data');
     mapBuilder(mapData);
-  }, 300);
+
+    const loader = document.querySelector('.loader');
+    loader.remove();
+  }, 1000);
 });
