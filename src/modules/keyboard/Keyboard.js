@@ -2,11 +2,6 @@ import * as storage from './storage';
 import create from './utils/create';
 import language from './layouts/index';
 import Key from './Key';
-import soundBoom from '../../sounds/boom.wav';
-import soundClap from '../../sounds/clap.wav';
-import soundTom from '../../sounds/tom.wav';
-import soundSnare from '../../sounds/snare.wav';
-import soundTink from '../../sounds/tink.wav';
 import { controlQuickSearch } from '../components/CountryList.component';
 
 const main = create('main', '');
@@ -32,7 +27,6 @@ export default class Keyboard {
     this.output = document.querySelector('#country-list');
 
     const kbInitBtn = document.querySelector('.keyboardIcon');
-    // kbInitBtn.addEventListener('click', () => console.log('clicked'));
 
     kbInitBtn.addEventListener('click', () => {
       const keyboard = document.querySelector('.keyboard');
@@ -82,31 +76,7 @@ export default class Keyboard {
     if (e.stopPropagation) e.stopPropagation();
 
     if (this.buttonSound) {
-      if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
-        const sound = document.createElement('audio');
-        sound.src = soundBoom;
-        sound.play();
-      } else if (e.code === 'CapsLock') {
-        const sound = document.createElement('audio');
-        sound.src = soundClap;
-        sound.play();
-      } else if ((e.code === 'Backspace')) {
-        const sound = document.createElement('audio');
-        sound.src = soundTom;
-        sound.play();
-      } else if (e.code === 'Enter') {
-        const sound = document.createElement('audio');
-        sound.src = soundSnare;
-        sound.play();
-      } else if (storage.get('kbLang') === 'ru') {
-        const sound = document.createElement('audio');
-        sound.src = soundTink;
-        sound.play();
-      } else {
-        const sound = document.createElement('audio');
-        sound.src = soundTink;
-        sound.play();
-      }
+      return;
     }
 
     if (e.code === 'en/ru' && e.type === 'mousedown') {
@@ -122,69 +92,11 @@ export default class Keyboard {
       return;
     }
 
-    if (e.code === 'button sound' && e.type === 'mousedown') {
-      this.buttonSound = !this.buttonSound;
-      const keyObj = this.keyButtons.find((key) => key.code === e.code);
-      keyObj.div.classList.toggle('active');
-
-      if (this.buttonSound) {
-        keyObj.div.style.background = 'rgb(60, 212, 0)';
-      } else {
-        keyObj.div.style.background = 'rgb(78, 78, 78) radial-gradient(circle at 0 0, rgba(136, 134, 134, 0.65), rgba(167, 167, 167, 0.35))';
-      }
+    if (e.code === 'search' && e.type === 'mousedown') {
       return;
     }
 
-    if (e.code === 'voice input' && e.type === 'mousedown') {
-      this.voiceRecorder = !this.voiceRecorder;
-
-      const keyObj = this.keyButtons.find((key) => key.code === e.code);
-      keyObj.div.classList.toggle('active');
-      window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      // eslint-disable-next-line no-undef
-      const rec = new SpeechRecognition();
-
-      if (this.voiceRecorder) {
-        setInterval(() => {
-          if (!this.voiceRecorder) {
-            rec.abort();
-          }
-        }, 500);
-      }
-
-      rec.interimResults = false;
-      rec.lang = (storage.get('kbLang') === 'ru') ? 'ru-RU' : 'en-US';
-
-      const voiceHandler = () => {
-        const text = Array.from(e.results)
-          .map((result) => result[0])
-          .map((result) => result.transcript)
-          .join('');
-        this.output.value += text;
-        controlQuickSearch();
-      };
-
-      const endHandler = () => {
-        if (this.voiceRecorder) {
-          rec.start();
-        } else {
-          rec.abort();
-          rec.removeEventListener('result', voiceHandler);
-          rec.removeEventListener('end', endHandler);
-        }
-      };
-
-      rec.addEventListener('result', voiceHandler);
-
-      if (!this.voiceRecorder) {
-        rec.removeEventListener('end', endHandler);
-        rec.removeEventListener('result', voiceHandler);
-        keyObj.div.style.background = 'rgb(78, 78, 78) radial-gradient(circle at 0 0, rgba(136, 134, 134, 0.65), rgba(167, 167, 167, 0.35))';
-      } else {
-        rec.start();
-        rec.addEventListener('end', endHandler);
-        keyObj.div.style.background = 'rgb(60, 212, 0)';
-      }
+    if (e.code === 'info' && e.type === 'mousedown') {
       return;
     }
 

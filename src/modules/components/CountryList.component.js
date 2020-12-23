@@ -25,6 +25,9 @@ export function controlQuickSearch() {
         const cntr = create('span');
         cntr.textContent = country.country;
 
+        const cases = create('p');
+        cases.innerHTML = `Cases:<span class='listSpanCases'> ${country.cases}</span> Recovered:<span class='listSpanRecovered'> ${country.recovered}</span> Deaths: <span class='listSpanDeaths'>${country.deaths}</span>`;
+
         countyInner.addEventListener('click', () => {
           requestCountryData(country.country, dataTable);
           new ScheduleDiseases().createSchedule(country.country);
@@ -33,6 +36,7 @@ export function controlQuickSearch() {
 
         countyInner.append(flagImg);
         countyInner.append(cntr);
+        countyInner.append(cases);
         dataListSearch.append(countyInner);
 
         return undefined;
@@ -91,7 +95,6 @@ export default class CountryList {
     const formData = document.querySelector('.form-list');
     const input = document.querySelector('#country-list');
     const dataTable = document.querySelector('.dataTable');
-    // const dataList = document.querySelector('.dataList');
 
     formData.addEventListener('submit', (e) => {
       e.preventDefault();

@@ -334,13 +334,13 @@ export default [{
   code: 'hide keyboard',
 },
 {
-  small: 'Голосовой Ввод',
+  small: 'Информация',
   shift: null,
-  code: 'voice input',
+  code: 'информация',
 },
 {
-  small: 'Звук Клавиш',
+  small: 'Найти',
   shift: null,
-  code: 'button sound',
+  code: 'найти',
 },
 ];

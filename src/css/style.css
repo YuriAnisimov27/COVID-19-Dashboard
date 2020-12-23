@@ -1,13 +1,49 @@
-/* background linear-gradient(346deg, rgba(53, 1, 36, 1) 0%, rgba(20, 20, 34, 1) 53%, rgba(92, 18, 18, 0.9699230033810399) 98%); 
-border =  #84848b
-*/
-
 body {
-  background: rgb(53, 1, 36);
-  background: linear-gradient(346deg, rgba(53, 1, 36, 1) 0%, rgba(20, 20, 34, 1) 53%, rgba(92, 18, 18, 0.9699230033810399) 98%);
+  background: #141422;
   margin: 0;
   padding: 0;
   font-family: Avenir Next W01, Avenir Next W00, Avenir Next, Avenir, Helvetica Neue, sans-serif;
+  height: 100%;
+}
+
+.lds-hourglass {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.lds-hourglass:after {
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  width: 0;
+  height: 0;
+  margin: 300px auto;
+  box-sizing: border-box;
+  border: 32px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-hourglass 1.2s infinite;
+}
+@keyframes lds-hourglass {
+  0% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  50% {
+    transform: rotate(900deg);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  100% {
+    transform: rotate(1800deg);
+  }
+}
+
+.loader {
+  position: fixed;
+  background: #141422;
+  z-index: 99999999;
+  height: 100%;
+  width: 100%;
 }
 
 button:focus {
@@ -24,28 +60,29 @@ li {
 }
 
 .numberOf {
-  color: red;
-  padding-left: 10px;
+  font-weight: 600;
+  color: rgb(182, 10, 53);
+  padding-left: 20px;
 }
 
 .numberOfrec {
-  color: rgb(0, 179, 0);
-  padding-left: 10px;
+  font-weight: 600;
+  color: rgb(14, 139, 108);
+  padding-left: 20px;
 }
 
 .numberOfconf {
-  color: #2c4be5
+  font-weight: 600;
+  color: rgb(44, 106, 240);
+  padding-left: 20px;
 }
 
 .container {
   width: 100%;
-  height: 100%;
   margin: auto;
-  /* border: 1px solid #84848b; */
-  background: #141422;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   row-gap: 10px;
 }
 
@@ -53,10 +90,9 @@ li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 40px;
+  height: 60px;
   width: 100%;
   padding-left: 5px;
-   /* border: 1px solid #84848b; */
   font-family: "Avenir Next W01", "Avenir Next W00", "Avenir Next", Avenir, "Helvetica Neue", sans-serif;
   background: #141422;
   color: #aaa;
@@ -113,19 +149,12 @@ li {
   position: relative;
   width: 100%;
   height: 310px;
-  /* border: 1px solid #84848b; */
   color: #aaa;
+  box-sizing: border-box;
 }
 
-.table {
-  position: relative;
-  width: 100%;
-  max-width: 320px;
-  height: 290px;
-  color: #aaa;
-  padding: 18px 5px 10px 10px;
-  overflow-y: scroll;
-  /* box-sizing: border-box; */
+.table:hover, .list:hover, .schedule:hover, .map:hover {
+  border: 1px solid #fff;
 }
 
 .dataList {
@@ -172,51 +201,56 @@ li {
   color: #e65425;
 }
 
+
+.table {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  height: 290px;
+  color: #aaa;
+  padding: 18px 5px 10px 10px;
+  overflow-y: scroll;
+  box-sizing: border-box;
+}
+
 .list {
   position: relative;
-   width: 100%;
-  max-width: 465px; 
+  width: 100%;
+  max-width: 500px;
+  min-width: 360px;
   height: 290px;
   color: #aaa;
   padding: 15px 5px 10px 10px;
   overflow-y: scroll;
   transition: all 0.2s;
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
 }
 
 .schedule {
   position: relative;
   padding: 15px 5px 10px 10px;
   width: 100%;
-  max-width: 365px;
+  max-width: 345px;
   height: 290px;
   color: #aaa;
   overflow-y: hidden;
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
 }
-
-/* .list:hover {
-  border: 1px solid #84848b;
-}
-
-.schedule:hover {
-  border: 1px solid #84848b;
-}
-
-.table:hover {
-  border: 1px solid #84848b;
-} */
 
 .footer {
   height: 55px;
   width: 100%;
-  /* border: 1px solid #84848b; */
   color: #aaa;
 }
 
 .country-inner {
   cursor: pointer;
   margin: 3px;
+  height: 50px;
+}
+
+.country-inner:hover{
+  border: 1px solid #eee;
 }
 
 .country-inner img {
@@ -237,7 +271,6 @@ li {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  /* color: rgb(44, 106, 240);   */
 }
 
 .table-nav__title {
@@ -291,17 +324,20 @@ canvas {
     justify-content: space-between;
   }
   .list {
-    max-width: 305px;
+    max-width: 380px;
   };
   .header-title {
     font-size: 1.5rem !important;
+  }
+  .table {
+    max-width: 250px;
   }
   .schedule {
     max-width: 323px;
   }
 }
 
-@media screen and (max-width:999px) {
+@media screen and (max-width:1030px) {
   .container {
     width: 100%;
     align-items: center;
@@ -310,16 +346,14 @@ canvas {
     font-size: 1.3rem !important;
   }
   .list {
-    max-width: 100%;
-    width: 100%;
+    width: calc(100% - 220px);
+    min-width: 350px;
   }
   .table {
-    max-width: 100%;
-    width: 100%;
+    width: 200px;
   }
   .schedule {
-    max-width: 100%;
-    width: 100%;
+    max-width: 260px;
   }
   canvas {
     max-width: 100%;
@@ -350,13 +384,35 @@ canvas {
   font-size: 16;
 }
 
+@media screen and (max-width:900px) {
+  .container {
+    width: 100%;
+    align-items: center;
+  }
+  .header-title {
+    font-size: 1.3rem !important;
+  }
+  .list {
+    min-width: calc(100% - 250px);
+  }
+  .schedule {
+    max-width: 100%;
+    width: 100%;
+  }
+  canvas {
+    max-width: 100%;
+    width: 100%;
+    height: 300px;
+  }
+}
+
 @media screen and (max-width:675px) {
   .header-options__icon {
     font-size: 17px;
   }
 }
 
-@media screen and (max-width:550px) {
+@media screen and (max-width:620px) {
   .header-title {
     font-size: 1rem !important;
     max-width: 20%;
@@ -415,4 +471,9 @@ canvas {
 }
 .mapBodyFull {
   height: 100%;
+}
+
+.material-icons:hover {
+  transform: scale(1.2);
+  transition: all .3s ease;
 }

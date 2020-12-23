@@ -1,5 +1,4 @@
 import { storage } from './helpers';
-import countries from '../data/countries.data';
 
 export async function requestData() {
   await fetch('https://disease.sh/v3/covid-19/countries')
@@ -103,13 +102,12 @@ export function requestCurrentDayDataPer100k(dataTable, country) {
 export function requestCountryData(country, dataTable) {
   const title = document.querySelector('.table-nav__title');
   const img = document.querySelector('.table-nav__img');
-  const currentCountry = countries.filter((el) => el.name === country)[0];
   fetch('https://disease.sh/v3/covid-19/countries')
     .then((data) => data.json())
     .then((data) => {
       const searchingCountryData = data.filter((el) => el.country === country)[0];
       title.textContent = JSON.stringify(searchingCountryData.country);
-      img.src = currentCountry.flag;
+      img.src = searchingCountryData.countryInfo.flag;
       // eslint-disable-next-line no-param-reassign
       dataTable.innerHTML = `
       <ul>
