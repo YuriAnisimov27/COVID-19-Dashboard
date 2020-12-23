@@ -6,21 +6,21 @@ export async function requestData() {
     .then((data) => {
       storage('Countries data', data);
     })
-    .catch((err) => console.error(err));
+    .catch(new Error('Error save in storage: Countries data'));
 
   await fetch('https://covid19-api.org/api/timeline')
     .then((data) => data.json())
     .then((data) => {
       storage('Global timeline', data);
     })
-    .catch((err) => console.error(err));
+    .catch(new Error('Error save in storage: Global timeline'));
 
   await fetch('https://disease.sh/v3/covid-19/all')
     .then((data) => data.json())
     .then((data) => {
       storage('Global data', data);
     })
-    .catch((err) => console.error(err));
+    .catch(new Error('Error save in storage: Global data'));
 }
 
 export function reqGlobalData(dataTable) {
@@ -36,7 +36,7 @@ export function reqGlobalData(dataTable) {
       </ul>
       `;
     })
-    .catch((err) => console.error(err));
+    .catch(new Error('Error reqGlobalData'));
 }
 
 export function requestTotalCountData(dataTable, country) {
@@ -121,7 +121,7 @@ export function requestCountryData(country, dataTable) {
       </ul>
       `;
     })
-    .catch((err) => console.error(err));
+    .catch(new Error('Error requestCountryData'));
 }
 
 export async function getGlobalSchedule(status) {
@@ -144,7 +144,8 @@ export async function getGlobalSchedule(status) {
     }));
   dates.length = 100;
   dates.reverse();
-  cases.reverse().length = 100;
+  cases.length = 100;
+  cases.reverse();
 
   return { dates, cases };
 }

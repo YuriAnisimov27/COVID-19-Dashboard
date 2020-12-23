@@ -1,7 +1,6 @@
 /* eslint-disable import/no-duplicates */
 import create from '../utils/helpers';
 import { getCountrySchedule, getGlobalSchedule } from '../utils/server';
-import { storage } from '../utils/helpers';
 
 export default class ScheduleDiseases {
   constructor() {
@@ -23,11 +22,12 @@ export default class ScheduleDiseases {
     }
 
     const ctx = document.getElementById('myChart').getContext('2d');
+    const datesWithNoYear = dates.map((el) => el.replace('2020', '20'));
     // eslint-disable-next-line no-undef
     this.chart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: dates,
+        labels: datesWithNoYear,
         datasets: [{
           label: status,
           backgroundColor: bcgColor,
@@ -53,15 +53,18 @@ export default class ScheduleDiseases {
     });
   }
 
-  updateChart(dates, cases, status) {
-    this.chart.data.datasets[0].label = status;
-    this.chart.data.datasets[0].data = cases;
-    this.chart.data.labels = dates;
-    this.chart.update();
-  }
+  // updateChart(dates, cases, status) {
+  //   console.log(this.chart.id);
+  //   this.chart.data.datasets[0].label = status;
+  //   this.chart.data.datasets[0].data = [];
+  //   this.chart.data.datasets[0].data = cases;
+  //   this.chart.data.labels = [];
+  //   this.chart.data.labels = dates;
+  //   this.chart.update();
+  // }
 
   async createSchedule(country = null, status = 'confirmed') {
-    const currentDay = storage('Current Day');
+    const currentDay = new Date().toDateString();
 
     if (country) {
       const title = document.querySelector('.schedule-btn__info');

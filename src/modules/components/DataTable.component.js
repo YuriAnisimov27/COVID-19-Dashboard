@@ -6,6 +6,7 @@ import {
   requestCurrentDayDataPer100k,
   requestTotalCountData,
 } from '../utils/server';
+import ScheduleDiseases from './ScheduleDiseases.component';
 
 export default class DataTable {
   createTable() {
@@ -74,3 +75,17 @@ export default class DataTable {
     });
   }
 }
+
+const resetToGlobal = document.querySelector('.returnbtn');
+resetToGlobal.addEventListener('click', () => {
+  const dataTable = document.querySelector('.dataTable');
+  const tableTitle = document.querySelector('.table-nav__title');
+  tableTitle.textContent = 'World Data';
+  const tableImg = document.querySelector('.table-nav__img');
+  tableImg.src = 'https://purepng.com/public/uploads/large/purepng.com-earthearthplanetglobethird-planet-from-the-sun-1411526987488yte7h.png';
+
+  reqGlobalData(dataTable);
+  new ScheduleDiseases().createSchedule();
+  const scheduleTitle = document.querySelector('.schedule-btn__info');
+  scheduleTitle.textContent = ' Global Data ';
+});
