@@ -91,7 +91,6 @@ export default class CountryList {
     const formData = document.querySelector('.form-list');
     const input = document.querySelector('#country-list');
     const dataTable = document.querySelector('.dataTable');
-    // const dataList = document.querySelector('.dataList');
 
     formData.addEventListener('submit', (e) => {
       e.preventDefault();

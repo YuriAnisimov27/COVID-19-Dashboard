@@ -107,13 +107,16 @@
 }
 
 .listSpanCases {
-  color: #2c4be5;
+  font-weight: 600;
+  color: rgb(44, 106, 240);
 }
 
 .listSpanDeaths {
-  color: red;
+  font-weight: 600;
+  color: rgb(182, 10, 53);
 }
 
 .listSpanRecovered {
-  color: #00b300;
+  font-weight: 600;
+  color: rgb(14, 139, 108);
 }
