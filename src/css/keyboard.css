@@ -21,7 +21,7 @@ main {
 
 .keyboard {
   position: fixed;
-  max-width: 1170px;
+  max-width: 100%;
   margin: 0 auto;
   display: none;
   grid-row-gap: 5px;
