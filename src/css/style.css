@@ -12,6 +12,7 @@ body {
   width: 100%;
   height: 100%;
 }
+
 .lds-hourglass:after {
   content: " ";
   display: block;
@@ -24,6 +25,7 @@ body {
   border-color: #fff transparent #fff transparent;
   animation: lds-hourglass 1.2s infinite;
 }
+
 @keyframes lds-hourglass {
   0% {
     transform: rotate(0);
@@ -104,6 +106,7 @@ li {
   font-size: 15px;
   max-width: 30%;
   width: 30%;
+  margin-right: 30px;
   transition: all 0.5s;
 }
 
@@ -161,10 +164,10 @@ li {
   box-sizing: border-box;
   overflow-y: hidden;
 }
+
 .list p {
   display: flex;
   justify-content: space-around;
-
 }
 
 .table p, .list p {
@@ -201,7 +204,6 @@ li {
   color: #e65425;
 }
 
-
 .table {
   position: relative;
   width: 100%;
@@ -216,7 +218,7 @@ li {
 .list {
   position: relative;
   width: 100%;
-  max-width: 500px;
+  max-width: 46%;
   min-width: 360px;
   height: 290px;
   color: #aaa;
@@ -238,9 +240,66 @@ li {
 }
 
 .footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 9px 10px 0 10px;
   height: 55px;
   width: 100%;
   color: #aaa;
+}
+
+.footer-year {
+  color: #eee;
+  font-size: 1.5rem;
+}
+
+.gitlogo {
+  width: 50px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: all 0.5s;
+}
+
+.rsschool {
+  background-color: #eee;
+  border-radius: 5%;
+  width: 90px;
+  align-self: center;
+  transition: all 0.5s;
+}
+
+.rsschool:hover {
+  transform: rotate(10deg);
+}
+
+.authorName {
+  color: #eee;
+  transition: all 0.5s;
+}
+
+/* .gitlink:hover .authorName{
+  font-size: 1.1rem;
+} */
+
+.gitlink:hover .gitlogo {
+  width: 55px;
+}
+
+.git {
+  display: flex;
+  justify-content: space-between;
+  width: 30%;
+}
+
+.gitlink {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.footer-year {
+  align-self: center;
 }
 
 .country-inner {
@@ -249,7 +308,7 @@ li {
   height: 50px;
 }
 
-.country-inner:hover{
+.country-inner:hover {
   border: 1px solid #eee;
 }
 
@@ -324,8 +383,9 @@ canvas {
     justify-content: space-between;
   }
   .list {
-    max-width: 380px;
-  };
+    max-width: 44%;
+  }
+  ;
   .header-title {
     font-size: 1.5rem !important;
   }
@@ -352,8 +412,11 @@ canvas {
   .table {
     width: 200px;
   }
+  .table-nav__info {
+    padding-top: 57px;
+  }
   .schedule {
-    max-width: 260px;
+    max-width: 300px;
   }
   canvas {
     max-width: 100%;
@@ -380,6 +443,7 @@ canvas {
   font-size: 14px;
   transition: all 0.5s;
 }
+
 .fullscreenbtn:hover .screen__manager__icon {
   font-size: 16;
 }
@@ -420,6 +484,9 @@ canvas {
   .header-nav__title {
     font-size: 10px;
   }
+  .table-nav__info {
+    padding-top: 45px;
+  }
   .list {
     max-width: 100%;
     width: 100%;
@@ -442,9 +509,11 @@ canvas {
     font-size: 0.8rem !important;
   }
 }
+
 .noScroll {
   overflow-y: hidden;
 }
+
 .fullscreen {
   position: fixed;
   max-width: 100%;
@@ -453,27 +522,36 @@ canvas {
   z-index: 1000001;
   background: black;
   left: 0;
-  top:0;
+  top: 0;
 }
 
 .list:hover .fullscreenbtn {
   display: block;
 }
-.table:hover .fullscreenbtn{
+
+.table:hover .fullscreenbtn {
   display: block;
 }
+
 .schedule:hover .fullscreenbtn {
   display: block;
 }
+
 .mapFull:hover .fullscreenbtn {
   display: block;
   z-index: 1000;
 }
+
 .mapBodyFull {
   height: 100%;
 }
 
 .material-icons:hover {
+  cursor: pointer;
   transform: scale(1.2);
   transition: all .3s ease;
+}
+
+.returnbtn:hover {
+  color: #fff;
 }

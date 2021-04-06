@@ -1,43 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>COVID-19</title>
-    <link rel="icon" type="image/x-icon" />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-      crossorigin=""
-    />
-    <script
-      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-      crossorigin=""
-    ></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  </head>
 
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COVID-19</title>
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+</head>
 
-    <div class="lds-hourglass loader"></div>
+<body>
 
-    <div class="container">
-      <header class="header">
-        <h1 class="header-title">Covid-19 Dashboard</h1>
-        <div class="header-nav">
-          <div class="header-nav__symptoms">
-            <h5 class="header-nav__title">Symptoms</h5>
-          </div>
-          <div class="header-nav__prevention">
-            <h5 class="header-nav__title">Prevention</h5>
-          </div>
-          <div class="header-nav__treatments">
-            <h5 class="header-nav__title">Treatments</h5>
-          </div>
+  <div class="lds-hourglass loader"></div>
+
+  <div class="container">
+    <header class="header">
+      <h1 class="header-title">Covid-19 Dashboard</h1>
+      <div class="header-nav">
+        <div class="header-nav__symptoms">
+          <h5 class="header-nav__title">Symptoms</h5>
         </div>
-        <div class="header-options">
+        <div class="header-nav__prevention">
+          <h5 class="header-nav__title">Prevention</h5>
+        </div>
+        <div class="header-nav__treatments">
+          <h5 class="header-nav__title">Treatments</h5>
+        </div>
+      </div>
+      <!-- <div class="header-options">
           <span class="material-icons header-options__icon"> language </span>
           <span class="material-icons header-options__icon"> schema </span>
           <span class="material-icons header-options__icon"> grid_on </span>
@@ -46,79 +42,87 @@
           <span class="material-icons header-options__icon"> query_stats </span>
           <span class="material-icons header-options__icon"> insights </span>
           <span class="material-icons header-options__icon"> info </span>
-        </div>
-      </header>
+        </div> -->
+    </header>
 
-      <div class="map mapFull" id="mapBlock">
-        <div class="map" id="map"></div>
-      </div>
+    <div class="map mapFull" id="mapBlock">
+      <div class="map" id="map"></div>
+    </div>
 
-      <div class="table">
-        <div class="table-nav">
-          <button class="table-btn__left">
-            <span class="material-icons"> arrow_left </span>
-          </button>
-          <span class="table-btn__info"> total </span>
-          <button class="table-btn__right">
-            <span class="material-icons"> arrow_right </span>
-          </button>
-        </div>
-        <div class="table-nav__info">
-          <img
-            class="table-nav__img"
-            src="https://purepng.com/public/uploads/large/purepng.com-earthearthplanetglobethird-planet-from-the-sun-1411526987488yte7h.png"
-            alt="country"
-          />
-          <h3 class="table-nav__title">World Data</h3>
-        </div>
+    <div class="table">
+      <div class="table-nav">
+        <button class="table-btn__left">
+          <span class="material-icons"> arrow_left </span>
+        </button>
+        <span class="table-btn__info"> total </span>
+        <button class="table-btn__right">
+          <span class="material-icons"> arrow_right </span>
+        </button>
       </div>
-      <div class="list">
-        <div class="list-inputBlock">
-          <div>
-            <button class="virtKeyboard">
-              <span class="material-icons keyboardIcon"> keyboard </span>
+      <div class="table-returnToGlobal">
+        <span class="material-icons returnbtn"> settings_backup_restore </span>
+      </div>
+      <div class="table-nav__info">
+        <img class="table-nav__img"
+          src="https://purepng.com/public/uploads/large/purepng.com-earthearthplanetglobethird-planet-from-the-sun-1411526987488yte7h.png"
+          alt="country" />
+        <h3 class="table-nav__title">World Data</h3>
+      </div>
+    </div>
+    <div class="list">
+      <div class="list-inputBlock">
+        <div>
+          <button class="virtKeyboard">
+            <span class="material-icons keyboardIcon"> keyboard </span>
+          </button>
+        </div>
+        <form action="" method="get" class="form-list">
+          <div class="form-example">
+            <input class="list-input" type="text" name="country" id="country-list" placeholder="Search" required />
+            <button class="searchbtn">
+              <span class="material-icons loopIcon"> search </span>
             </button>
           </div>
-          <form action="" method="get" class="form-list">
-            <div class="form-example">
-              <input
-                class="list-input"
-                type="text"
-                name="country"
-                id="country-list"
-                placeholder="Search"
-                required
-              />
-              <button class="searchbtn">
-                <span class="material-icons loopIcon"> search </span>
-              </button>
-            </div>
-          </form>
-        </div>
-        <div class="list-nav">
-          <button class="sort-cases sortbtn">Cases</button>
-          <button class="sort-recovered sortbtn">Recovered</button>
-          <button class="sort-deaths sortbtn">Deaths</button>
-          <span class="material-icons sort-icon"> keyboard_arrow_down </span>
-        </div>
+        </form>
       </div>
-
-      <div class="schedule">
-        <div class="schedule-nav">
-          <button class="schedule-btn__left">
-            <span class="material-icons"> arrow_left </span>
-          </button>
-          <span class="schedule-btn__info"> Global Cases </span>
-          <button class="schedule-btn__right">
-            <span class="material-icons"> arrow_right </span>
-          </button>
-        </div>
-        <canvas height="255px" id="myChart"></canvas>
+      <div class="list-nav">
+        <button class="sort-cases sortbtn">Cases</button>
+        <button class="sort-recovered sortbtn">Recovered</button>
+        <button class="sort-deaths sortbtn">Deaths</button>
+        <span class="material-icons sort-icon"> keyboard_arrow_down </span>
       </div>
-
-      <footer class="footer">footer</footer>
-
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
     </div>
-  </body>
+
+    <div class="schedule">
+      <div class="schedule-nav">
+        <button class="schedule-btn__left">
+          <span class="material-icons"> arrow_left </span>
+        </button>
+        <span class="schedule-btn__info"> Global Data </span>
+        <button class="schedule-btn__right">
+          <span class="material-icons"> arrow_right </span>
+        </button>
+      </div>
+      <canvas height="250px" id="myChart"></canvas>
+    </div>
+
+    <footer class="footer">
+      <a class="rsschool" href="https://rs.school"><img class="rsschoollogo" src="https://rs.school/images/rs_school_js.svg"
+          alt="rsschool"></a>
+      <span class="footer-year">2020</span>
+      <div class="git">
+        <!-- <a class="gitlink" href="https://github.com/LexaMart">
+          <img class="gitlogo" src="https://www.flaticon.com/svg/static/icons/svg/25/25231.svg" alt="git"><span class="authorName">Alex
+            Martinkevich</span>
+        </a> -->
+        <a class="gitlink" href="https://github.com/YuriAnisimov27">
+          <img class="gitlogo" src="https://www.flaticon.com/svg/static/icons/svg/25/25231.svg" alt="git"><span class="authorName">Yuri Anisimov</span>
+        </a>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
+  </div>
+</body>
+
 </html>
